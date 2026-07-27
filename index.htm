@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для отчётов</title>
+    <link rel="stylesheet" href="styles/style.css" >
+</head>
+<body>
+    <main>
+    <div id="form" data-memsnum="0">
+        
+
+<h2>Для отчётов</h2>
+<div class="row">
+  <fieldset><legend>За период</legend>
+  <input type="radio" name="period" id="forStrictDate" checked >&nbsp;&nbsp;&nbsp;<label for="forStrictDate">За сегодня</label><br>
+  <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная стата</label><br>
+  <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
+  </fieldset><br><br>
+  <div class="column">
+    <label for="kioskSum">Киоск, выручка: </label><br><br>
+    <label for="kioskGuests">Киоск, люди: </label><br><br>
+    <label for="yandexDeliveries">Яндекс-доставок: </label><br><br>
+    <label for="drinks">Напитки: </label><br><br>
+    <label for="cashierBoxSum">Касса выручка: </label><br><br>
+    <label for="cashierBoxGuests">Касса, люди: </label>
+  </div>
+  <div class="column">
+    <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка" value=""><br><br>
+    <input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди" value=""><br><br>
+    <input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""><br><br>
+    <input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""><br><br>
+    <input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""><br><br>
+    <input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value="">
+  </div>
+</div>
+<br><br><br>
+<input type="button" id="goClip" name="goClip" onclick="goClip();" value="Скопировать для вставки в чат" >
+<input type="button" onclick="reportStats();" value="Для отчётности" style="display:none;" />
+
+    </div>
+    </main>
+    <script src="scripts/index.js"></script>
+</body>
+</html>

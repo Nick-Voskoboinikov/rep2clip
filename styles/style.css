@@ -1,0 +1,6 @@
+main {width: 93dvw;}
+
+div.column {float: left;width: 50%;text-align: left;}
+div.column input[type=text]:-moz-placeholder, div.column input[type=number]:-moz-placeholder{text-align: right;}
+div.column input[type=text]::-webkit-input-placeholder, div.column input[type=number]::-webkit-input-placeholder{text-align: right;}
+div.row:after {content: "";display: table;clear: both;}

@@ -20,7 +20,7 @@ let kioskSum = parseInt((document.querySelector('#kioskSum').value), 10);
 let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
 navigator.clipboard.writeText(`${datey}:
 
-Выручка общая: \`\`\`${kioskSum+cashierBoxSum}\`\`\` ₽
+Выручка общая: <code>${kioskSum+cashierBoxSum}</code> ₽
 Киоск продажи: \`\`\`${kioskSum}\`\`\` ₽
 Киоск чек: \`\`\`${(kioskSum/kioskGuests).toFixed(2)}\`\`\` ₽
 Касса продажи: \`\`\`${cashierBoxSum}\`\`\` ₽

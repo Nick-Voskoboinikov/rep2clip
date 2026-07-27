@@ -1,4 +1,4 @@
-main {width: 93dvw;}
+main {width: 93vw;}
 
 div.column {float: left;width: 50%;text-align: left;}
 div.column input[type=text]:-moz-placeholder, div.column input[type=number]:-moz-placeholder{text-align: right;}

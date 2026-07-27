@@ -18,9 +18,9 @@ let cashierBoxSum = parseInt((document.querySelector('#cashierBoxSum').value), 1
 let yandexDeliveries = parseInt((document.querySelector('#yandexDeliveries').value), 10);
 let kioskSum = parseInt((document.querySelector('#kioskSum').value), 10);
 let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
-navigator.clipboard.writeText(`${datey}:
+navigator.clipboard.writeText(`**${datey}**:
 
-Выручка общая: <code>${kioskSum+cashierBoxSum}</code> ₽
+**Выручка общая: \`\`\`${kioskSum+cashierBoxSum}\`\`\` ₽**
 Киоск продажи: \`\`\`${kioskSum}\`\`\` ₽
 Киоск чек: \`\`\`${(kioskSum/kioskGuests).toFixed(2)}\`\`\` ₽
 Касса продажи: \`\`\`${cashierBoxSum}\`\`\` ₽

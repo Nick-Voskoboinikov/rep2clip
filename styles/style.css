@@ -1,4 +1,36 @@
-main {width: 93vw;}
+:root {
+    --main-bg-color: #1b1b1c;
+    --main-inputs-bg-color: #242426;
+    --main-burger-menu-color: #008800;
+    --main-burger-menu-active-color: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    --main-bg-gradient: linear-gradient(#35363a 20%, #000 80%);
+    --main-bg-active-color: #190914;
+    --main-text-color: #7c808d;
+    --main-special-color: #2CC48B;
+    --main-special-light-color: rgba(44, 196, 139, .6);
+    --main-special-ultralight-color: rgba(44, 196, 139, .2);
+    --main-active-color: #00ff00;
+}
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0;
+    background-color: var(--main-bg-color,#35363a);
+    color: var(--main-text-color,oklch(0.54 0.18 142.49));
+}
+
+article,aside,details,figcaption,figure,header,hgroup,main,nav,section,summary {
+    display: block
+}
+
+main {width: 93vw; padding:1em;}
+
+input[type=button] {border-radius: 0.75em;}
 
 div.column {float: left;width: 50%;text-align: left;}
 div.column input[type=text]:-moz-placeholder, div.column input[type=number]:-moz-placeholder{text-align: right;}

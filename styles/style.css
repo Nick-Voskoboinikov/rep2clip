@@ -36,3 +36,5 @@ div.column {float: left;width: 50%;text-align: left;}
 div.column input[type=text]:-moz-placeholder, div.column input[type=number]:-moz-placeholder{text-align: right;}
 div.column input[type=text]::-webkit-input-placeholder, div.column input[type=number]::-webkit-input-placeholder{text-align: right;}
 div.row:after {content: "";display: table;clear: both;}
+
+#goClip {background-color: black; color: var(--main-active-color,oklch(0.54 0.18 142.49)); border-color: var(--main-active-color,oklch(0.54 0.18 142.49));font-size: medium; font-weight: 500;}

@@ -41,7 +41,7 @@ navigator.clipboard.writeText(`${datey}:
 Касса чек: ${(cashierBoxSum/cashierGuests).toFixed(2)}
 Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests}
 Средний чек: ${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)}
-Напитки: ${cashierDrinks}🥤
+Напитки: ${cashierDrinks}
 Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries}
 `);
 // navigator.clipboard.writeText(`${datey}:

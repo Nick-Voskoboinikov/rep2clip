@@ -18,21 +18,28 @@
   <fieldset><legend>За период</legend>
   <input type="radio" name="period" id="forStrictDate" checked >&nbsp;&nbsp;&nbsp;<label for="forStrictDate">За сегодня</label><br>
   <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная статистика</label><br>
+  <div id="interMedStatSumField" ><input type="text" inputmode="numeric" id="kioskPreSum" name="kioskPreSum" pattern="^[\d\.\s]+$" placeholder="Киоск, суммы чеков через пробел" value=""></div>
   <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
   </fieldset><br><br>
   <div class="column">
-    <label for="kioskSum">Киоск, выручка: </label><br><br>
-    <label for="kioskGuests">Киоск, люди: </label><br><br>
-    <label for="yandexDeliveries">Яндекс-доставок: </label><br><br>
-    <label for="drinks">Напитки: </label><br><br>
-    <label for="cashierBoxSum">Касса выручка: </label><br><br>
-    <label for="cashierBoxGuests">Касса, люди: </label>
+    <label for="kioskSum">Киоск, выручка</label>: <br><br>
+    <label for="kioskGuests">Киоск, люди</label>: <br><br>
+    <label for="yandexDeliveries">Яндекс-доставок</label>: <br><br>
+    <label for="drinks">Напитки</label>: <br><br>
+    <label for="sixInchesOfTheDay">Сэндвичи дня, 15 см</label>: <br><br>
+    <label for="footlongsOfTheDay">Сэндвичи дня, 30 см</label>: <br><br>
+    <label for="trio">Трио</label>: <br><br>
+    <label for="cashierBoxSum">Касса выручка</label>: <br><br>
+    <label for="cashierBoxGuests">Касса, люди</label>: 
   </div>
   <div class="column">
     <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка" value=""><br><br>
     <input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди" value=""><br><br>
     <input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""><br><br>
     <input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""><br><br>
+    <input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 15см" value=""><br><br>
+    <input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""><br><br>
+    <input type="text" inputmode="numeric" id="trio" name="drinks" pattern="^\d+$" placeholder="Комбо Трио" value=""><br><br>
     <input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""><br><br>
     <input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value="">
   </div>

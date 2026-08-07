@@ -20,6 +20,9 @@ let cashierBoxSum = parseInt((document.querySelector('#cashierBoxSum').value), 1
 let yandexDeliveries = parseInt((document.querySelector('#yandexDeliveries').value), 10);
 let kioskSum = parseInt((document.querySelector('#kioskSum').value), 10);
 let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
+let sixInchesOfTheDay = parseInt((document.querySelector('#sixInchesOfTheDay').value), 10);
+let footlongsOfTheDay = parseInt((document.querySelector('#footlongsOfTheDay').value), 10);
+let trios = parseInt((document.querySelector('#trio').value), 10);
 // navigator.clipboard.writeText(`**${datey}**:
 
 // **Выручка общая: \`\`\`${kioskSum+cashierBoxSum}\`\`\` ₽**
@@ -32,21 +35,9 @@ let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
 // Напитки: \`\`\`${cashierDrinks}\`\`\`🥤
 // Офф​лайн: \`\`\`${(kioskGuests+cashierGuests)-yandexDeliveries}\`\`\` 👤
 // `);
-navigator.clipboard.writeText(`${datey}:
-
-Выручка общая: ${kioskSum+cashierBoxSum}
-Киоск продажи: ${kioskSum}
-Киоск чек: ${(kioskSum/kioskGuests).toFixed(2)}
-Касса продажи: ${cashierBoxSum}
-Касса чек: ${(cashierBoxSum/cashierGuests).toFixed(2)}
-Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests}
-Средний чек: ${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)}
-Напитки: ${cashierDrinks}
-Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries}
-`);
 // navigator.clipboard.writeText(`${datey}:
 
-// Выручка общая: ${kioskSum+cashierBoxSum} ₽
+// Выручка общая: ${kioskSum+cashierBoxSum}
 // Киоск продажи: ${kioskSum} ₽
 // Киоск чек: ${(kioskSum/kioskGuests).toFixed(2)} ₽
 // Касса продажи: ${cashierBoxSum} ₽
@@ -56,6 +47,23 @@ navigator.clipboard.writeText(`${datey}:
 // Напитки: ${cashierDrinks}🥤
 // Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries} 👤
 // `);
+output = `${datey}:
+
+Выручка общая: ${kioskSum+cashierBoxSum} ₽
+Киоск, продажи: ${kioskSum} ₽
+Киоск, чек: ${(kioskSum/kioskGuests).toFixed(2)} ₽
+Касса, продажи: ${cashierBoxSum} ₽
+Касса, чек: ${(cashierBoxSum/cashierGuests).toFixed(2)} ₽
+Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests} 👥
+Средний чек: ${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)} ₽
+Напитки: ${cashierDrinks} 🥤
+Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries} 👤
+`
+output += `Саб дня 15см: ${sixInchesOfTheDay} 🥪
+Саб дня 30см: ${footlongsOfTheDay} 🥖
+Комбо Трио: ${trios} 🥖🥤🍪
+`
+navigator.clipboard.writeText(output);
 }
 
 
@@ -79,3 +87,25 @@ const numericInputs = document.querySelectorAll("[inputmode=numeric]");
 numericInputs.forEach((input) => {
   validateInput(input);
 });
+
+let possiblePeriods=document.querySelectorAll('input[type=radio][name=period]');
+possiblePeriods.forEach(item => {
+    item.addEventListener('change',()=>{
+  if(document.querySelector('#forInterMed').checked){
+    document.querySelector('#interMedStatSumField').style.display='block';
+  } else {
+    document.querySelector('#interMedStatSumField').style.display='none';
+  }
+});
+});
+
+let kioskPreSum=document.querySelector('#kioskPreSum');
+kioskPreSum.addEventListener('keyup',()=>{
+  let vals=(kioskPreSum.value).split(' ');
+  if((vals[vals.length - 1]).length !== 0 ){
+    document.querySelector('#kioskGuests').value=vals.length;
+  } else {
+    document.querySelector('#kioskGuests').value=vals.length-1;
+  }
+  document.querySelector('#kioskSum').value=vals.reduce((acc, num) => acc + Number(num), 0);
+},false);

@@ -38,3 +38,5 @@ div.column input[type=text]::-webkit-input-placeholder, div.column input[type=nu
 div.row:after {content: "";display: table;clear: both;}
 
 #goClip {background-color: black; color: var(--main-active-color,oklch(0.54 0.18 142.49)); border-color: var(--main-active-color,oklch(0.54 0.18 142.49));font-size: medium; font-weight: 500;}
+#kioskPreSum{width:100%;}
+#interMedStatSumField{display:none;}

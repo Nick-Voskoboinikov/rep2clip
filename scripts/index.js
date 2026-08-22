@@ -15,53 +15,51 @@ datey = 'Промежуточная статистика на 21:00 ' + d.toLoca
 
 
 let cashierDrinks = parseInt((document.querySelector('#drinks').value), 10);
-let cashierGuests = parseInt((document.querySelector('#cashierBoxGuests').value), 10);
+if(isNaN(cashierDrinks)){cashierDrinks=0;}
+cashierDrinks += ' 🥤';
 let cashierBoxSum = parseInt((document.querySelector('#cashierBoxSum').value), 10);
+if(isNaN(cashierBoxSum)){
+  alert('Не указана ваыручка с кассы, заполните хотя бы нолём.');
+  return;
+}
+let cashierGuests = parseInt((document.querySelector('#cashierBoxGuests').value), 10);
+if(isNaN(cashierGuests)){
+  alert('Не указано количество чеков с кассы , заполните хотя бы нолём.');
+  return;
+}
 let yandexDeliveries = parseInt((document.querySelector('#yandexDeliveries').value), 10);
+if(isNaN(yandexDeliveries)){
+  alert('Не указано количество яндекс-доставок, заполните хотя бы нолём.');
+  return;
+}
+console.log('ай!');
 let kioskSum = parseInt((document.querySelector('#kioskSum').value), 10);
+if(isNaN(kioskSum)){kioskSum=0;}
 let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
+if(isNaN(kioskGuests)){kioskGuests=0;}
 let sixInchesOfTheDay = parseInt((document.querySelector('#sixInchesOfTheDay').value), 10);
 let footlongsOfTheDay = parseInt((document.querySelector('#footlongsOfTheDay').value), 10);
-let trios = parseInt((document.querySelector('#trio').value), 10);
-// navigator.clipboard.writeText(`**${datey}**:
+let triosN = parseInt((document.querySelector('#trio').value), 10);
+if(isNaN(triosN)){triosN=0;}
 
-// **Выручка общая: \`\`\`${kioskSum+cashierBoxSum}\`\`\` ₽**
-// Киоск продажи: \`\`\`${kioskSum}\`\`\` ₽
-// Киоск чек: \`\`\`${(kioskSum/kioskGuests).toFixed(2)}\`\`\` ₽
-// Касса продажи: \`\`\`${cashierBoxSum}\`\`\` ₽
-// Касса чек: \`\`\`${(cashierBoxSum/cashierGuests).toFixed(2)}\`\`\` ₽
-// Количество гостей: (${kioskGuests}+${cashierGuests})=\`\`\`${kioskGuests+cashierGuests}\`\`\` 👥
-// Средний чек: \`\`\`${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)}\`\`\` ₽
-// Напитки: \`\`\`${cashierDrinks}\`\`\`🥤
-// Офф​лайн: \`\`\`${(kioskGuests+cashierGuests)-yandexDeliveries}\`\`\` 👤
-// `);
-// navigator.clipboard.writeText(`${datey}:
-
-// Выручка общая: ${kioskSum+cashierBoxSum}
-// Киоск продажи: ${kioskSum} ₽
-// Киоск чек: ${(kioskSum/kioskGuests).toFixed(2)} ₽
-// Касса продажи: ${cashierBoxSum} ₽
-// Касса чек: ${(cashierBoxSum/cashierGuests).toFixed(2)} ₽
-// Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests} 👥
-// Средний чек: ${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)} ₽
-// Напитки: ${cashierDrinks}🥤
-// Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries} 👤
-// `);
+let kioskCheque = (kioskGuests === 0) ? 0 : (kioskSum/kioskGuests).toFixed(2);
+kioskCheque += ' ₽';
+let trios = triosN + ' 🥖🥤🍪';
 output = `${datey}:
 
 Выручка общая: ${kioskSum+cashierBoxSum} ₽
 Киоск, продажи: ${kioskSum} ₽
-Киоск, чек: ${(kioskSum/kioskGuests).toFixed(2)} ₽
+Киоск, чек: ${kioskCheque}
 Касса, продажи: ${cashierBoxSum} ₽
 Касса, чек: ${(cashierBoxSum/cashierGuests).toFixed(2)} ₽
 Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests} 👥
 Средний чек: ${((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)} ₽
-Напитки: ${cashierDrinks} 🥤
+Напитки: ${cashierDrinks}
 Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries} 👤
 `
 output += `Саб дня 15см: ${sixInchesOfTheDay} 🥪
 Саб дня 30см: ${footlongsOfTheDay} 🥖
-Комбо Трио: ${trios} 🥖🥤🍪
+Комбо Трио: ${trios}
 `
 navigator.clipboard.writeText(output);
 }

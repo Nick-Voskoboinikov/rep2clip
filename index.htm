@@ -21,29 +21,85 @@
   <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
   </fieldset><br>
   <table>
-    <tr style="display: none;" ><td><label for="kioskSum">Киоск, выручка</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" style="width: 100vw;" ></details>
-    </td><td><input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка" value="0" disabled ></td></tr>
-    <tr style="display: none;" ><td><label for="kioskGuests">Киоск, люди</label>:</td><td><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди" value="0" disabled></td></tr>
+    <tr><td><label for="kioskSum">Киоск, выручка</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" ></details>
+    </td><td><div popover id="kiosksum_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div>
+      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка       " value="" ><button popovertarget="kiosksum_fieldCallout" class="help"></button></td></tr>
+    <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><div popover id="kioskGuests_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди       " value="" ><button popovertarget="kioskGuests_fieldCallout" class="help"></button></td></tr>
     <tr><td><label for="yandexDeliveries">Яндекс-доставок</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>
     <tr><td><label for="drinks">Напитки</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_1.jpg" alt="Общий сменный день" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_1.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""></td></tr>
     <tr><td><label for="sixInchesOfTheDay">Сэндвичи дня, 15 см</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_2.png" alt="Общий сменный день" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="sixInchesOfTheDay" pattern="^\d+$" placeholder="Саб дня 15см" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_2.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="sixInchesOfTheDay" pattern="^\d+$" placeholder="Саб дня 15см" value=""></td></tr>
     <tr><td><label for="footlongsOfTheDay">Сэндвичи дня, 30 см</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
     <tr><td><label for="trio">Трио</label>:</td><td><input type="text" inputmode="numeric" id="trio" name="drinks" pattern="^\d+$" placeholder="Комбо Трио" value=""></td></tr>
     <tr><td><label for="cashierBoxSum">Касса выручка</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_1.jpg" alt="Отчёт \"Общая выручка\"" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_1.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""></td></tr>
     <tr><td><label for="cashierBoxGuests">Касса, люди</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_2.jpg" alt="Отчёт \"Общая выручка\"" style="width: 100vw;" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_2.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value=""></td></tr>
   </table>
 <br>
 <input type="button" id="goClip" name="goClip" onclick="goClip();" value="Скопировать для вставки в чат" >
 <input type="button" onclick="reportStats();" value="Для отчётности" style="display:none;" />
 
-    <button id="settingsBtn" style="display:none;" onmouseover="(this.querySelector('span')).style.transform='rotateX(45deg);'"><span>⚙️kk</span></button>
+    <div>
+      <button id="settingsBtn" >⚙️</button><br><br>
+      <div id="settings_section">
+        <fieldset><legend>Настройки</legend>
+          <label for="pref_theme">Тема</label>:
+          <select id="pref_theme">
+            <option>Тёмная</option>
+            <option style="display: none;" >Светлая</option>
+            <option style="display: none;" >Психоделика</option>
+          </select><br><br>
+            <label for="">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist">
+              <datalist id="pref_decimal_separator_datalist"><select disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
+          <details><summary>&ndash;&gt;&nbsp;Cтроки отчёта</summary>
+            <fieldset><legend>Включать в отчёт строки:</legend>
+            <table>
+              <tr><td><label for="">&quot;Киоск, продажи&quot; и &quot;Киоск, чек&quot;</label></td><td></td></tr>
+              <tr><td><label for="">&quot;Напитки&quot;</label></td><td></td></tr>
+              <tr><td><label for="">&quot;Саб дня 15см&quot;</label></td><td></td></tr>
+              <tr><td><label for="">&quot;Саб дня 30см&quot;</label></td><td></td></tr>
+              <tr><td><label for="">&quot;Комбо Трио&quot;</label></td><td></td></tr>
+            </table>
+            </fieldset>
+          </details><br>
+          <details><summary>&ndash;&gt;&nbsp;Единицы измерения</summary>
+            <fieldset><legend>Используемые единицы измерения:</legend>
+            <table>
+              <tr><td><label for="pref_peeps">Люди</label>:</td><td><input type="text" id="pref_peeps" list="pref_peeps_datalist">
+              <datalist id="pref_peeps_datalist"><select disabled=""><option value=" 👤"></option><option value="👤"></option><option value=" чел."></option><option value=" чел"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_peeps_lots">Люди, много</label>:</td><td><input type="text" id="pref_peeps_lots" list="pref_peeps_lots_datalist">
+              <datalist id="pref_peeps_lots_datalist"><select disabled=""><option value=" 👥"></option><option value="👥"></option><option value=" чел."></option><option value=" чел"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_cash">Деньги</label>:</td><td><input type="text" id="pref_cash" list="pref_cash_datalist">
+              <datalist id="pref_cash_datalist"><select disabled=""><option value=" ₽"></option><option value="₽"></option><option value=" руб."></option><option value=" руб"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_deliveries">Доставки</label>:</td><td><input type="text" id="pref_deliveries"></td></tr>
+              <tr><td><label for="pref_sixinches">Сэндвичи 15см</label>:</td><td><input type="text" id="pref_sixinches" list="pref_sixinches_datalist">
+              <datalist id="pref_sixinches_datalist"><select disabled=""><option value=" 🥪"></option><option value="🥪"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_footlongs">Сэндвичи 30см</label>:</td><td><input type="text" id="pref_footlongs" list="pref_footlongs_datalist">
+              <datalist id="pref_footlongs_datalist"><select disabled=""><option value=" 🥖"></option><option value="🥖"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_drinks">Комбо Трио</label>:</td><td><input type="text" id="pref_trios" list="pref_trios_datalist">
+              <datalist id="pref_trios_datalist"><select disabled=""><option value=" 🥖🥤🍪"></option><option value="🥖🥤🍪"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_drinks">Напитки</label>:</td><td><input type="text" id="pref_drinks" list="pref_drinks_datalist">
+              <datalist id="pref_drinks_datalist"><select disabled=""><option value=" 🥤"></option><option value="🥤"></option><option value=" 🥛"></option><option value="🥛"></option><option value=" ☕"></option><option value="☕"></option><option value=" 🍵"></option><option value="🍵"></option><option value=" 🍺"></option><option value="🍺"></option><option value=" 🍹"></option><option value="🍹"><option value=" 🧋"></option><option value="🧋"><option value=" 🍸"></option><option value="🍸"><option value=" 🥂"></option><option value="🥂"><option value=" 🧃"></option><option value="🧃"></option><option value=" 🍷"></option><option value="🍷"></option><option value=" 🏆"></option><option value="🏆"></option><option value=" 🏺"></option><option value="🏺"></option><option value=" ☕︎"></option><option value="☕︎"></option><option value=" 𓏊"></option><option value="𓏊"></option><option value=" 🥃"></option><option value="🥃"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+            </table>
+          </details><br><br>
+          <table><tr><td>Попробовать использовать форматирование</td><td></td></tr></table>
+          <br>
+        </fieldset>
+        <br>
+      </div>
+    </div>
     </main>
     <script src="scripts/index.js"></script>
 </body>

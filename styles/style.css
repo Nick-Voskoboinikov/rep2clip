@@ -40,11 +40,23 @@ input[type=text]:focus, input[type=number]:focus{outline: 1px solid var(--main-a
 table {width: 100%; border: none;}
 td {width: 100%; padding-top: 8px;}
 
-tr > td > details > summary {display: inline-block; var(--main-active-color,oklch(0.54 0.18 142.49)); border: 1px solid var(--main-text-color, oklch(0.54 0.18 142.49)); border-radius: 50%; min-width: .85rem; padding-left: .55rem; background-color: #002bff;}
+tr > td > details > summary {display: inline-block; color: var(--main-text-color, #7c808d);border: 1px solid var(--main-text-color, #7c808d); border-radius: 50%; min-width: .85rem; padding-left: .55rem; background-color: #002bff;}
+tr > td > details > img {width: 100%;}
 
 #goClip {background-color: black; color: var(--main-active-color,oklch(0.54 0.18 142.49)); border-color: var(--main-active-color,oklch(0.54 0.18 142.49));font-size: medium; font-weight: 500;}
 #kioskPreSum{width:100%;}
 #interMedStatSumField{display:none;}
+
+button.help{display: none; position: absolute;z-index: 1;right: 26px;color:var(--main-text-color, #7c808d); border: 1px solid var(--main-text-color, #7c808d); border-radius: 50%; min-width: .85rem; padding-left: .55rem; background-color: #002bff;}
+button.help::after{content:"i";position: relative;left: -2px;}
+#kiosksum_fieldCallout,#kioskGuests_fieldCallout {padding:.5em;background-color:var(--main-bg-active-color,#190914);border-radius:.5em;border: 1px solid var(--main-text-color, #7c808d);color:var(--main-text-color, #7c808d); inline-size: max(50vw, 50%); position-area: top span-left;}
+td:has(input[inputmode="numeric"]):focus-within>button.help{display: inline-block;}
+
+div:has(>#settingsBtn){display: block; position: absolute; right: .25rem; top:.25rem;max-width: 75%;border-radius:.75rem; }
+#settingsBtn{display: block; float: right; font-size: 1.5rem;background-color: transparent;border-color: transparent;border-radius: 2.25rem;transition: transform .8s ease-in;}
+#settings_section{display: none;max-height: 75dvh;padding: 10px;overflow-y:auto;}
+#settingsBtn:hover {transform: rotate(900deg);}
+div:has(>#settingsBtn):focus-within>#settings_section{display: block;background-color: var(--main-bg-color,#35363a);border: 2px solid var(--main-special-color);border-radius:.75rem;}
 
 
 @media (max-width: 500px){

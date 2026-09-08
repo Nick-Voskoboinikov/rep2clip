@@ -7,6 +7,7 @@
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;&#9999;&#65039;&lt;/text&gt;&lt;/svg&gt;">
     <title>Для отчёта в чат</title>
     <link rel="stylesheet" href="styles/style.css" >
+    <link rel="stylesheet" href="styles/cflashAlerts.css" >
 </head>
 <body>
     <main>
@@ -112,7 +113,9 @@
           <br>
         </fieldset>
         <button title="Закрыть диалог настроек" id="close_prefs" aria-label="close modal" >&times;</button>
-        <br></dialog>
+        <br>
+        <div id="alert-area" class="alert-area"></div>
+      </dialog>
     <div id="form" data-memsnum="0">
 <h2>Для отчёта в чат</h2>
   <fieldset><legend>За период</legend>
@@ -143,8 +146,9 @@
   </table>
 <br>
 <input type="button" id="goClip" name="goClip" onclick="goClip();" value="Скопировать для вставки в чат" >
-<input type="button" onclick="reportStats();" value="Для отчётности" style="display:none;" />
-
+<br><br>
+<div id="alertu-area" class="alert-area"></div>
+    <script src="scripts/flashAlerts.js"></script>
     <div>
       <button id="settingsBtn" >⚙️</button>
     </div>

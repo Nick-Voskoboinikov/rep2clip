@@ -85,6 +85,8 @@ function updateSettings(){
   localStorage.setItem("prefs", JSON.stringify(arrPrefs));
   // console.log("settings updated");
   // console.log(arrPrefs);
+  
+  alertus.show('Настройки обновлены.');
   checkSettings();
 }
 
@@ -123,7 +125,6 @@ function checkSettings(){
 }
 function RunPsychodelica(){
   if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Психоделика'){
-    console.log('RunPsychodelica()');
     console.log((JSON.parse(localStorage.getItem("prefs")))['theme']);
     console.log(getRandomColor());
     let r = document.querySelector(':root');
@@ -135,6 +136,14 @@ function RunPsychodelica(){
     r.style.setProperty('--main-active-color', getRandomColor());
 
     setTimeout(RunPsychodelica, 1500);
+  } else {
+    let r = document.querySelector(':root');
+    r.style.setProperty('--main-bg-color', '');
+    r.style.setProperty('--main-inputs-bg-color', '');
+    r.style.setProperty('--main-bg-active-color', '');
+    r.style.setProperty('--main-text-color', '');
+    r.style.setProperty('--main-special-color', '');
+    r.style.setProperty('--main-active-color', '');
   }
 }
 
@@ -224,6 +233,7 @@ output += `Комбо Трио:  ${af(triosN)}${(JSON.parse(localStorage.getItem
 }
 
 navigator.clipboard.writeText(output);
+alertu.show('Скопировано в буфер обмена.<br>Теперь можно вставить в чат.');
 }
 
 // function applies formatting if needed
@@ -276,6 +286,17 @@ kioskPreSum.addEventListener('keyup',()=>{
   }
   document.querySelector('#kioskSum').value=vals.reduce((acc, num) => acc + Number(num), 0);
 },false);
+
+var alertus=new AlertBox('#alert-area', {
+		    closeTime: 2000,
+		    persistent: false,
+		    hideCloseButton: false
+		    });
+var alertu=new AlertBox('#alertu-area', {
+		    closeTime: 2000,
+		    persistent: false,
+		    hideCloseButton: false
+		    });
 
 document.addEventListener("DOMContentLoaded",()=>{
   recallSettings();

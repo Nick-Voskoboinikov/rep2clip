@@ -96,30 +96,54 @@ function checkSettings(){
     RunPsychodelica();
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек'] === false){
+    document.querySelector('#kioskSum').value='0';
+    document.querySelector('#kioskGuests').value='0';
+    document.querySelector('#kioskSum').disbled='true';
+    document.querySelector('#kioskGuests').disbled='true';
     document.querySelector('tr:has(#kioskSum)').style.display='none';
     document.querySelector('tr:has(#kioskGuests)').style.display='none';
   } else {
+    document.querySelector('#kioskSum').value='';
+    document.querySelector('#kioskGuests').value='';
+    document.querySelector('#kioskSum').disbled='false';
+    document.querySelector('#kioskGuests').disbled='false';
     document.querySelector('tr:has(#kioskSum)').style.display='table-row';
     document.querySelector('tr:has(#kioskGuests)').style.display='table-row';
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Напитки'] === false){
+    document.querySelector('#drinks').value='0';
+    document.querySelector('#drinks').disbled='true';
     document.querySelector('tr:has(#drinks)').style.display='none';
   } else {
+    document.querySelector('#drinks').value='';
+    document.querySelector('#drinks').disbled='false';
     document.querySelector('tr:has(#drinks)').style.display='table-row';
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 15см'] === false){
+    document.querySelector('#sixInchesOfTheDay').value='0';
+    document.querySelector('#sixInchesOfTheDay').disbled='true';
     document.querySelector('tr:has(#sixInchesOfTheDay)').style.display='none';
   } else {
+    document.querySelector('#sixInchesOfTheDay').value='';
+    document.querySelector('#sixInchesOfTheDay').disbled='false';
     document.querySelector('tr:has(#sixInchesOfTheDay)').style.display='table-row';
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 30см'] === false){
+    document.querySelector('#footlongsOfTheDay').value='0';
+    document.querySelector('#footlongsOfTheDay').disbled='true';
     document.querySelector('tr:has(#footlongsOfTheDay)').style.display='none';
   } else {
+    document.querySelector('#footlongsOfTheDay').value='';
+    document.querySelector('#footlongsOfTheDay').disbled='false';
     document.querySelector('tr:has(#footlongsOfTheDay)').style.display='table-row';
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Комбо Трио'] === false){
+    document.querySelector('#trio').value='0';
+    document.querySelector('#trio').disbled='true';
     document.querySelector('tr:has(#trio)').style.display='none';
   } else {
+    document.querySelector('#trio').value='';
+    document.querySelector('#trio').disbled='false';
     document.querySelector('tr:has(#trio)').style.display='table-row';
   }
 }

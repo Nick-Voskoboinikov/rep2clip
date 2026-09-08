@@ -1,33 +1,123 @@
 
 function recallSettings(){
-    if (localStorage.getItem("prefs") === null) {
+  let settingsNeedUpdate=false;
+    if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Комбо Трио": true},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","apply formatting":false,"reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Комбо Трио": true},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
     let jsonedPrefsRead=JSON.parse(localStorage.getItem("prefs"));
     // console.log(jsonedPrefsRead);
+    
     document.querySelector('#pref_decimal_separator').value=jsonedPrefsRead['decimal separator'];
+    document.querySelector('#pref_decimal_separator').addEventListener('change',()=>{
+      updateSettings();
+    });
     let pref_theme_selector=document.querySelector('#pref_theme');
     // let pref_theme_selectedOption = [...pref_theme_selector.options].find(
     //   option => option.value === jsonedPrefsRead['theme']
     // );
     // console.log(pref_theme_selectedOption);
     pref_theme_selector.value = jsonedPrefsRead['theme'];
+    pref_theme_selector.addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_peeps').value=jsonedPrefsRead['measurement units']['Люди'];
+    document.querySelector('#pref_peeps').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_peeps_lots').value=jsonedPrefsRead['measurement units']['Люди, много'];
+    document.querySelector('#pref_peeps_lots').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_cash').value=jsonedPrefsRead['measurement units']['Деньги'];
+    document.querySelector('#pref_cash').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_deliveries').value=jsonedPrefsRead['measurement units']['Доставки'];
+    document.querySelector('#pref_deliveries').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_sixinches').value=jsonedPrefsRead['measurement units']['Сэндвичи 15см'];
+    document.querySelector('#pref_sixinches').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_footlongs').value=jsonedPrefsRead['measurement units']['Сэндвичи 30см'];
+    document.querySelector('#pref_footlongs').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_trios').value=jsonedPrefsRead['measurement units']['Комбо-трио'];
+    document.querySelector('#pref_trios').addEventListener('change',()=>{
+      updateSettings();
+    });
     document.querySelector('#pref_drinks').value=jsonedPrefsRead['measurement units']['Напитки'];
-    // console.log(jsonedPrefsRead['measurement units']);
+    document.querySelector('#pref_drinks').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_include_kiosk').checked=(!!jsonedPrefsRead['reported strings']['Киоск, продажи и Киоск, чек']);
+    document.querySelector('#pref_include_kiosk').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_include_drinks').checked=(!!jsonedPrefsRead['reported strings']['Напитки']);
+    document.querySelector('#pref_include_drinks').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_include_sixinches').checked=(!!jsonedPrefsRead['reported strings']['Саб дня 15см']);
+    document.querySelector('#pref_include_sixinches').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_include_footlongs').checked=(!!jsonedPrefsRead['reported strings']['Саб дня 30см']);
+    document.querySelector('#pref_include_footlongs').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_include_combo_trio').checked=(!!jsonedPrefsRead['reported strings']['Комбо Трио']);
+    document.querySelector('#pref_include_combo_trio').addEventListener('change',()=>{
+      updateSettings();
+    });
+    document.querySelector('#pref_attempt_formatting').checked=(!!jsonedPrefsRead['apply formatting']);
+    document.querySelector('#pref_attempt_formatting').addEventListener('change',()=>{
+      updateSettings();
+    });
+}
+function updateSettings(){
+  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
+  localStorage.setItem("prefs", JSON.stringify(arrPrefs));
+  // console.log("settings updated");
+  // console.log(arrPrefs);
+  checkSettings();
+}
 
+function checkSettings(){
+  console.log('checking settings');
+  if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек'] === false){
+    document.querySelector('tr:has(#kioskSum)').style.display='none';
+    document.querySelector('tr:has(#kioskGuests)').style.display='none';
+  } else {
+    document.querySelector('tr:has(#kioskSum)').style.display='table-row';
+    document.querySelector('tr:has(#kioskGuests)').style.display='table-row';
+  }
+  if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Напитки'] === false){
+    document.querySelector('tr:has(#drinks)').style.display='none';
+  } else {
+    document.querySelector('tr:has(#drinks)').style.display='table-row';
+  }
+  if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 15см'] === false){
+    document.querySelector('tr:has(#sixInchesOfTheDay)').style.display='none';
+  } else {
+    document.querySelector('tr:has(#sixInchesOfTheDay)').style.display='table-row';
+  }
+  if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 30см'] === false){
+    document.querySelector('tr:has(#footlongsOfTheDay)').style.display='none';
+  } else {
+    document.querySelector('tr:has(#footlongsOfTheDay)').style.display='table-row';
+  }
+  if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Комбо Трио'] === false){
+    document.querySelector('tr:has(#trio)').style.display='none';
+  } else {
+    document.querySelector('tr:has(#trio)').style.display='table-row';
+  }
 
-    console.log(jsonedPrefsRead['reported strings']);
-    // console.log((JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']);
 }
 
 function fixDecimals(numToFix){
@@ -51,23 +141,12 @@ datey = 'Промежуточная статистика на 21:00 ' + d.toLoca
 
 let cashierDrinks = parseInt((document.querySelector('#drinks').value), 10);
 if(isNaN(cashierDrinks)){cashierDrinks=0;}
-cashierDrinks += ' 🥤';
 let cashierBoxSum = parseInt((document.querySelector('#cashierBoxSum').value), 10);
-if(isNaN(cashierBoxSum)){
-  alert('Не указана ваыручка с кассы, заполните хотя бы нолём.');
-  return;
-}
+if(isNaN(cashierBoxSum)){alert('Не указана ваыручка с кассы, заполните хотя бы нолём.');return;}
 let cashierGuests = parseInt((document.querySelector('#cashierBoxGuests').value), 10);
-if(isNaN(cashierGuests)){
-  alert('Не указано количество чеков с кассы , заполните хотя бы нолём.');
-  return;
-}
+if(isNaN(cashierGuests)){alert('Не указано количество чеков с кассы , заполните хотя бы нолём.');return;}
 let yandexDeliveries = parseInt((document.querySelector('#yandexDeliveries').value), 10);
-if(isNaN(yandexDeliveries)){
-  alert('Не указано количество яндекс-доставок, заполните хотя бы нолём.');
-  return;
-}
-console.log('ай!');
+if(isNaN(yandexDeliveries)){alert('Не указано количество яндекс-доставок, заполните хотя бы нолём.');return;}
 let kioskSum = parseInt((document.querySelector('#kioskSum').value), 10);
 if(isNaN(kioskSum)){kioskSum=0;}
 let kioskGuests = parseInt((document.querySelector('#kioskGuests').value), 10);
@@ -81,28 +160,53 @@ if(isNaN(triosN)){triosN=0;}
 
 let kioskCheque = (kioskGuests === 0) ? 0 : (kioskSum/kioskGuests).toFixed(2);
 
-kioskCheque += ' ₽';
-let trios = triosN + ' 🥖🥤🍪';
 output = `${datey}:
 
-Выручка общая: ${kioskSum+cashierBoxSum} ₽
-Киоск, продажи: ${kioskSum} ₽
-Киоск, чек: ${fixDecimals(kioskCheque)}
-Касса, продажи: ${cashierBoxSum} ₽
-Касса, чек: ${fixDecimals((cashierBoxSum/cashierGuests).toFixed(2))} ₽
-Количество гостей: (${kioskGuests}+${cashierGuests})=${kioskGuests+cashierGuests} 👥
-Средний чек: ${fixDecimals(((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2))} ₽
-Напитки: ${cashierDrinks}
-Офф​лайн: ${(kioskGuests+cashierGuests)-yandexDeliveries} 👤
-`
-output += `Саб дня 15см: ${sixInchesOfTheDay} 🥪
-Саб дня 30см: ${footlongsOfTheDay} 🥖
-Комбо Трио: ${trios}
-`
+Выручка общая:  ${af(kioskSum+cashierBoxSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+`;
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){
+output += `Киоск, продажи:  ${af(kioskSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Киоск, чек: ${af(fixDecimals(kioskCheque))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+`;
+}
+output += `Касса, продажи:  ${af(cashierBoxSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Касса, чек:  ${af(fixDecimals((cashierBoxSum/cashierGuests).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Количество гостей: `;
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){
+  output += `(${kioskGuests}+${cashierGuests})=`;
+}
+output += `${af(kioskGuests+cashierGuests)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди, много']}
+Средний чек:  ${af(fixDecimals(((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+`;
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Напитки']){
+output += `Напитки:  ${af(cashierDrinks)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Напитки']}
+`;
+}
+output += `Офф​лайн:  ${af(((kioskGuests+cashierGuests)-yandexDeliveries))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди']}
+`;
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 15см']){
+output += `Саб дня 15см: ${af(sixInchesOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 15см']}
+`;
+}
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 30см']){
+output += `Саб дня 30см:  ${af(footlongsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 30см']}
+`;
+}
+if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Комбо Трио']){
+output += `Комбо Трио:  ${af(triosN)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Комбо-трио']}`;
+}
+
 navigator.clipboard.writeText(output);
 }
 
-
+// function applies formatting if needed
+function af(numberForFormattingApplication=0){
+  if((JSON.parse(localStorage.getItem("prefs")))['apply formatting']){
+    return '```'+numberForFormattingApplication+'```';
+  }else{
+    return numberForFormattingApplication;
+  }
+}
 
 // num input validation:
 function validateInput(el) {
@@ -146,4 +250,16 @@ kioskPreSum.addEventListener('keyup',()=>{
   document.querySelector('#kioskSum').value=vals.reduce((acc, num) => acc + Number(num), 0);
 },false);
 
-document.addEventListener("DOMContentLoaded",recallSettings());
+document.addEventListener("DOMContentLoaded",()=>{
+  recallSettings();
+  checkSettings();
+});
+
+
+document.querySelector('#settingsBtn').addEventListener('click',()=>{
+  document.querySelector('#settings_dialog').showModal();
+});
+
+document.querySelector('#close_prefs').addEventListener('click',()=>{
+  document.querySelector('#settings_dialog').close();
+});

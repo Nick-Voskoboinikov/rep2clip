@@ -10,60 +10,65 @@
 </head>
 <body>
     <main>
-    <div id="form" data-memsnum="0">
-        
-
-<h2>Для отчёта в чат</h2>
-  <fieldset><legend>За период</legend>
-  <input type="radio" name="period" id="forStrictDate" checked >&nbsp;&nbsp;&nbsp;<label for="forStrictDate">За сегодня</label><br>
-  <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная статистика</label><br>
-  <div id="interMedStatSumField" ><input type="text" inputmode="numeric" id="kioskPreSum" name="kioskPreSum" pattern="^[\d\.\s]+$" placeholder="Киоск, суммы чеков через пробел" value=""></div>
-  <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
-  </fieldset><br>
-  <table>
-    <tr><td><label for="kioskSum">Киоск, выручка</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" ></details>
-    </td><td><div popover id="kiosksum_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div>
-      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка       " value="" ><button popovertarget="kiosksum_fieldCallout" class="help"></button></td></tr>
-    <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><div popover id="kioskGuests_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди       " value="" ><button popovertarget="kioskGuests_fieldCallout" class="help"></button></td></tr>
-    <tr><td><label for="yandexDeliveries">Яндекс-доставок</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>
-    <tr><td><label for="drinks">Напитки</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_1.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""></td></tr>
-    <tr><td><label for="sixInchesOfTheDay">Сэндвичи дня, 15 см</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_2.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="sixInchesOfTheDay" pattern="^\d+$" placeholder="Саб дня 15см" value=""></td></tr>
-    <tr><td><label for="footlongsOfTheDay">Сэндвичи дня, 30 см</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
-    <tr><td><label for="trio">Трио</label>:</td><td><input type="text" inputmode="numeric" id="trio" name="drinks" pattern="^\d+$" placeholder="Комбо Трио" value=""></td></tr>
-    <tr><td><label for="cashierBoxSum">Касса выручка</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_1.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""></td></tr>
-    <tr><td><label for="cashierBoxGuests">Касса, люди</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_2.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value=""></td></tr>
-  </table>
-<br>
-<input type="button" id="goClip" name="goClip" onclick="goClip();" value="Скопировать для вставки в чат" >
-<input type="button" onclick="reportStats();" value="Для отчётности" style="display:none;" />
-
-    <div>
-      <button id="settingsBtn" >⚙️</button><br><br>
-      <div id="settings_section">
+      
+       <dialog id="settings_dialog" >
         <fieldset><legend>Настройки</legend>
           <label for="pref_theme">Тема</label>:
           <select id="pref_theme">
             <option>Тёмная</option>
-            <option style="display: none;" >Светлая</option>
-            <option style="display: none;" >Психоделика</option>
+            <!-- <option style="display: none;" >Светлая</option>
+            <option style="display: none;" >Психоделика</option> -->
           </select><br><br>
-            <label for="">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist">
+            <label for="pref_decimal_separator">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist" >
               <datalist id="pref_decimal_separator_datalist"><select disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
-          <details><summary>&ndash;&gt;&nbsp;Cтроки отчёта</summary>
+          <details><summary autofocus>&ndash;&gt;&nbsp;Cтроки отчёта</summary>
             <fieldset><legend>Включать в отчёт строки:</legend>
-            <table>
-              <tr><td><label for="">&quot;Киоск, продажи&quot; и &quot;Киоск, чек&quot;</label></td><td></td></tr>
-              <tr><td><label for="">&quot;Напитки&quot;</label></td><td></td></tr>
-              <tr><td><label for="">&quot;Саб дня 15см&quot;</label></td><td></td></tr>
-              <tr><td><label for="">&quot;Саб дня 30см&quot;</label></td><td></td></tr>
-              <tr><td><label for="">&quot;Комбо Трио&quot;</label></td><td></td></tr>
+            <table class="included_strings">
+              <tr><td><label for="pref_include_kiosk">&quot;Киоск, продажи&quot; и &quot;Киоск, чек&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_kiosk" >
+              <label class="flipswitch-label" for="pref_include_kiosk">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+              <tr><td><label for="pref_include_drinks">&quot;Напитки&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_drinks" >
+              <label class="flipswitch-label" for="pref_include_drinks">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+              <tr><td><label for="pref_include_sixinches">&quot;Саб дня 15см&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_sixinches" >
+              <label class="flipswitch-label" for="pref_include_sixinches">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+              <tr><td><label for="pref_include_footlongs">&quot;Саб дня 30см&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_footlongs" >
+              <label class="flipswitch-label" for="pref_include_footlongs">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+              <tr><td><label for="pref_include_combo_trio">&quot;Комбо Трио&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_combo_trio" >
+              <label class="flipswitch-label" for="pref_include_combo_trio">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
             </table>
             </fieldset>
           </details><br>
@@ -86,7 +91,7 @@
               <tr><td><label for="pref_footlongs">Сэндвичи 30см</label>:</td><td><input type="text" id="pref_footlongs" list="pref_footlongs_datalist">
               <datalist id="pref_footlongs_datalist"><select disabled=""><option value=" 🥖"></option><option value="🥖"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
               </td></tr>
-              <tr><td><label for="pref_drinks">Комбо Трио</label>:</td><td><input type="text" id="pref_trios" list="pref_trios_datalist">
+              <tr><td><label for="pref_trios">Комбо Трио</label>:</td><td><input type="text" id="pref_trios" list="pref_trios_datalist">
               <datalist id="pref_trios_datalist"><select disabled=""><option value=" 🥖🥤🍪"></option><option value="🥖🥤🍪"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
               </td></tr>
               <tr><td><label for="pref_drinks">Напитки</label>:</td><td><input type="text" id="pref_drinks" list="pref_drinks_datalist">
@@ -94,11 +99,53 @@
               </td></tr>
             </table>
           </details><br><br>
-          <table><tr><td>Попробовать использовать форматирование</td><td></td></tr></table>
+          <table class="included_strings"><tr><td><label for="pref_attempt_formatting">Попробовать использовать форматирование</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_attempt_formatting" >
+              <label class="flipswitch-label" for="pref_attempt_formatting">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr></table>
           <br>
         </fieldset>
-        <br>
-      </div>
+        <button title="Закрыть диалог настроек" id="close_prefs" aria-label="close modal" >&times;</button>
+        <br></dialog>
+    <div id="form" data-memsnum="0">
+<h2>Для отчёта в чат</h2>
+  <fieldset><legend>За период</legend>
+  <input type="radio" name="period" id="forStrictDate" checked >&nbsp;&nbsp;&nbsp;<label for="forStrictDate">За сегодня</label><br>
+  <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная статистика</label><br>
+  <div id="interMedStatSumField" ><input type="text" inputmode="numeric" id="kioskPreSum" name="kioskPreSum" pattern="^[\d\.\s]+$" placeholder="Киоск, суммы чеков через пробел" value=""></div>
+  <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
+  </fieldset><br>
+  <table>
+    <tr><td><label for="kioskSum">Киоск, выручка</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" ></details>
+    </td><td><div popover id="kiosksum_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div>
+      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка       " value="" ><button popovertarget="kiosksum_fieldCallout" class="help"></button></td></tr>
+    <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><div popover id="kioskGuests_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди       " value="" ><button popovertarget="kioskGuests_fieldCallout" class="help"></button></td></tr>
+    <tr><td><label for="yandexDeliveries">Яндекс-доставок</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>
+    <tr><td><label for="drinks">Напитки</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_1.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="drinks" name="drinks" pattern="^\d+$" placeholder="Напитки" value=""></td></tr>
+    <tr><td><label for="sixInchesOfTheDay">Сэндвичи дня, 15 см</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_2.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="sixInchesOfTheDay" pattern="^\d+$" placeholder="Саб дня 15см" value=""></td></tr>
+    <tr><td><label for="footlongsOfTheDay">Сэндвичи дня, 30 см</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
+    <tr><td><label for="trio">Трио</label>:</td><td><input type="text" inputmode="numeric" id="trio" name="trio" pattern="^\d+$" placeholder="Комбо Трио" value=""></td></tr>
+    <tr><td><label for="cashierBoxSum">Касса выручка</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_1.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""></td></tr>
+    <tr><td><label for="cashierBoxGuests">Касса, люди</label>:
+      <details><summary>i</summary><img src="img\IMG_20260725_091241_162_2.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxGuests" name="cashierBoxGuests" pattern="^\d+$" placeholder="Касса, люди" value=""></td></tr>
+  </table>
+<br>
+<input type="button" id="goClip" name="goClip" onclick="goClip();" value="Скопировать для вставки в чат" >
+<input type="button" onclick="reportStats();" value="Для отчётности" style="display:none;" />
+
+    <div>
+      <button id="settingsBtn" >⚙️</button>
     </div>
     </main>
     <script src="scripts/index.js"></script>

@@ -15,7 +15,12 @@
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+}
+
+html:has(#settings_dialog[open]){
+    overflow: hidden;
 }
 
 body {
@@ -30,6 +35,8 @@ article,aside,details,figcaption,figure,header,hgroup,main,nav,section,summary {
 
 main {width: 93vw; padding:1em;}
 
+h2 {color: var(--main-special-color, #2CC48B);}
+
 input[type=button] {border-radius: 0.75em;}
 
 table input[type=text]:-moz-placeholder, table input[type=number]:-moz-placeholder{text-align: right;}
@@ -42,30 +49,103 @@ td {width: 100%; padding-top: 8px;}
 
 tr > td > details > summary {display: inline-block; color: var(--main-text-color, #7c808d);border: 1px solid var(--main-text-color, #7c808d); border-radius: 50%; min-width: .85rem; padding-left: .55rem; background-color: #002bff;}
 tr > td > details > img {width: 100%;}
+fieldset {border: 1px solid var(--main-special-color, #2CC48B);}
+legend {border: 1px solid var(--main-special-color, #2CC48B); color: var(--main-special-color, #2CC48B);}
 
 #goClip {background-color: black; color: var(--main-active-color,oklch(0.54 0.18 142.49)); border-color: var(--main-active-color,oklch(0.54 0.18 142.49));font-size: medium; font-weight: 500;}
 #kioskPreSum{width:100%;}
 #interMedStatSumField{display:none;}
+
+details > summary {list-style: none;}
+details > summary::marker, /* Latest Chrome, Edge, Firefox */ 
+details > summary::-webkit-details-marker /* Safari */ {display: none;}
 
 button.help{display: none; position: absolute;z-index: 1;right: 26px;color:var(--main-text-color, #7c808d); border: 1px solid var(--main-text-color, #7c808d); border-radius: 50%; min-width: .85rem; padding-left: .55rem; background-color: #002bff;}
 button.help::after{content:"i";position: relative;left: -2px;}
 #kiosksum_fieldCallout,#kioskGuests_fieldCallout {padding:.5em;background-color:var(--main-bg-active-color,#190914);border-radius:.5em;border: 1px solid var(--main-text-color, #7c808d);color:var(--main-text-color, #7c808d); inline-size: max(50vw, 50%); position-area: top span-left;}
 td:has(input[inputmode="numeric"]):focus-within>button.help{display: inline-block;}
 
-div:has(>#settingsBtn){display: block; position: absolute; right: .25rem; top:.25rem;max-width: 75%;border-radius:.75rem; }
-#settingsBtn{display: block; float: right; font-size: 1.5rem;background-color: transparent;border-color: transparent;border-radius: 2.25rem;transition: transform .8s ease-in;}
-#settings_section{display: none;max-height: 75dvh;padding: 10px;overflow-y:auto;}
+div:has(>#settingsBtn){display: block; position: absolute; right: .5rem; top:.5rem; }
+#settingsBtn{display: block; float: right;padding: .5rem; font-size: 1.5rem;background-color: transparent;border-color: transparent;border-radius: 2.25rem;transition: transform .8s ease-in;}
+#settingsBtn:focus-visible{outline: 0 solid transparent;}
 #settingsBtn:hover {transform: rotate(900deg);}
-div:has(>#settingsBtn):focus-within>#settings_section{display: block;background-color: var(--main-bg-color,#35363a);border: 2px solid var(--main-special-color);border-radius:.75rem;}
+#settings_dialog{box-sizing:border-box; margin: auto; background-color: var(--main-bg-color,#35363a);color:var(--main-text-color, #7c808d);border: 2px solid var(--main-special-color);border-radius:.75rem;max-width: 90%;border-radius:.75rem;max-height: 75dvh;padding: 10px;overflow-y:auto;}
+#settings_dialog::backdrop{background-color: hsl(0 0% 0% / .6);backdrop-filter: blur(4px);}
+#close_prefs{position: absolute;font-size: 1.75rem; right: .5rem; top:.5rem;  background-color: var(--main-bg-color,#35363a);color:var(--main-special-color);border: 1px solid var(--main-special-color);border-radius: 5px;padding: .5rem;}
+
+.flipswitch {
+    position: relative;
+    width: 96px;
+}
+.flipswitch input[type=checkbox]{display: none;}
+.flipswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid var(--main-special-color);
+    border-radius: 4px;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-inner {margin-left: 0;}
+.flipswitch-inner {width: 200%;margin-left: -100%; transition: margin 0.3s ease-in 0s;}
+.flipswitch-inner:before {
+    content: "Вкл";
+    padding-left: 1em;
+    background-color: var(--main-bg-color,#35363a);
+    color: var(--main-special-color);
+}
+.flipswitch-inner:after
+ {
+    content: "Выкл";
+    padding-right: .5rem;
+    background-color: var(--main-bg-color,#35363a);
+    color: #880000;
+    text-align: right;
+}
+.flipswitch-inner:before, .flipswitch-inner:after {
+    float: left;
+    width: 50%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+input[type="checkbox"]:checked ~ .flipswitch-label > .flipswitch-switch {
+    background-image: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2272%22>✔️</text></svg>");
+}
+input[type="checkbox"]:not(:checked) ~ .flipswitch-label > .flipswitch-switch {
+        border: 2px solid #880000;
+        background-image: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.99em%22 font-size=%2272%22>🚫</text></svg>");
+    }
+input[type="checkbox"]:not(:checked) ~ .flipswitch-label {
+    border: 2px solid #880000;
+}
+.flipswitch-label:hover > .flipswitch-inner:after, .common-label:has(label:hover)+hr+.flipswitch > .flipswitch-label > .flipswitch-inner:after {
+    color: #cc0000;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-switch {
+    right: 0;
+}
+.flipswitch-switch {
+    width: 32px;
+    margin: -4px;
+    background: #2E2E2E;
+    background-repeat: no-repeat;
+    border: 2px solid var(--main-special-color);
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 64px;
+    transition: all 0.25s ease-in 0s;
+}
 
 
 @media (max-width: 500px){
-    body {
-        overflow-y: visible;
-    }
-    td {
-        display: block;
-    }
+    body {overflow-y: visible;}
+    table:not(.included_strings) td {display: block;}
     input[type=text], input[type=number] {width:95%;}
     input[type=button] {width: 100%;}
+    td > div.flipswitch {float: right;}
 }

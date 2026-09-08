@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="Тёмная">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,9 @@
           <label for="pref_theme">Тема</label>:
           <select id="pref_theme">
             <option>Тёмная</option>
-            <!-- <option style="display: none;" >Светлая</option>
-            <option style="display: none;" >Психоделика</option> -->
+            <option>Чёрная</option>
+            <option>Светлая</option>
+            <option>Психоделика</option>
           </select><br><br>
             <label for="pref_decimal_separator">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist" >
               <datalist id="pref_decimal_separator_datalist"><select disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
@@ -123,9 +124,9 @@
   <table>
     <tr><td><label for="kioskSum">Киоск, выручка</label>:
       <details><summary>i</summary><img src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" ></details>
-    </td><td><div popover id="kiosksum_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div>
-      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка       " value="" ><button popovertarget="kiosksum_fieldCallout" class="help"></button></td></tr>
-    <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><div popover id="kioskGuests_fieldCallout">Указать ноль при отсутствии продаж или недоступности</div><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди       " value="" ><button popovertarget="kioskGuests_fieldCallout" class="help"></button></td></tr>
+    </td><td>
+      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка" value="" ></td></tr>
+    <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди" value="" ></td></tr>
     <tr><td><label for="yandexDeliveries">Яндекс-доставок</label>:
       <details><summary>i</summary><img src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>
     <tr><td><label for="drinks">Напитки</label>:

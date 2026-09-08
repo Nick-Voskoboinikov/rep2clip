@@ -89,7 +89,10 @@ function updateSettings(){
 }
 
 function checkSettings(){
-  console.log('checking settings');
+  (document.querySelector('html')).setAttribute('data-theme', (JSON.parse(localStorage.getItem("prefs")))['theme']);
+  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Психоделика'){
+    RunPsychodelica();
+  }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек'] === false){
     document.querySelector('tr:has(#kioskSum)').style.display='none';
     document.querySelector('tr:has(#kioskGuests)').style.display='none';
@@ -117,7 +120,31 @@ function checkSettings(){
   } else {
     document.querySelector('tr:has(#trio)').style.display='table-row';
   }
+}
+function RunPsychodelica(){
+  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Психоделика'){
+    console.log('RunPsychodelica()');
+    console.log((JSON.parse(localStorage.getItem("prefs")))['theme']);
+    console.log(getRandomColor());
+    let r = document.querySelector(':root');
+    r.style.setProperty('--main-bg-color', getRandomColor());
+    r.style.setProperty('--main-inputs-bg-color', getRandomColor());
+    r.style.setProperty('--main-bg-active-color', getRandomColor());
+    r.style.setProperty('--main-text-color', getRandomColor());
+    r.style.setProperty('--main-special-color', getRandomColor());
+    r.style.setProperty('--main-active-color', getRandomColor());
 
+    setTimeout(RunPsychodelica, 1500);
+  }
+}
+
+function StopPsychodelica(psychodelicaThemeInterval){
+  clearInterval(psychodelicaThemeInterval);
+}
+
+function getRandomColor() {
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    return '#' + n.slice(0, 6);
 }
 
 function fixDecimals(numToFix){

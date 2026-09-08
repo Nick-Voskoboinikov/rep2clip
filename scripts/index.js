@@ -311,3 +311,7 @@ document.querySelector('#settingsBtn').addEventListener('click',()=>{
 document.querySelector('#close_prefs').addEventListener('click',()=>{
   document.querySelector('#settings_dialog').close();
 });
+
+document.querySelector('#goClip').addEventListener('click',()=>{
+  goClip();
+});

@@ -3,7 +3,7 @@ function recallSettings(){
   let settingsNeedUpdate=false;
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","apply formatting":false,"reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Комбо Трио": true},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Комбо Трио": true},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
@@ -12,6 +12,13 @@ function recallSettings(){
     
     document.querySelector('#pref_decimal_separator').value=jsonedPrefsRead['decimal separator'];
     document.querySelector('#pref_decimal_separator').addEventListener('change',()=>{
+      updateSettings();
+    });
+    if(jsonedPrefsRead['order separator'] === undefined){
+      jsonedPrefsRead['order separator'] = document.querySelector('#pref_order_separator').value;
+    }
+    document.querySelector('#pref_order_separator').value=jsonedPrefsRead['order separator'];
+    document.querySelector('#pref_order_separator').addEventListener('change',()=>{
       updateSettings();
     });
     let pref_theme_selector=document.querySelector('#pref_theme');
@@ -81,9 +88,8 @@ function recallSettings(){
     });
 }
 function updateSettings(){
-  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
+  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"order separator":document.querySelector('#pref_order_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
   localStorage.setItem("prefs", JSON.stringify(arrPrefs));
-  // console.log("settings updated");
   // console.log(arrPrefs);
   
   alertus.show('Настройки обновлены.');
@@ -92,7 +98,7 @@ function updateSettings(){
 
 function checkSettings(){
   (document.querySelector('html')).setAttribute('data-theme', (JSON.parse(localStorage.getItem("prefs")))['theme']);
-  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Психоделика'){
+  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Припадочная'){
     RunPsychodelica();
   }
   if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек'] === false){
@@ -148,7 +154,7 @@ function checkSettings(){
   }
 }
 function RunPsychodelica(){
-  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Психоделика'){
+  if((JSON.parse(localStorage.getItem("prefs")))['theme'] === 'Припадочная'){
     console.log((JSON.parse(localStorage.getItem("prefs")))['theme']);
     console.log(getRandomColor());
     let r = document.querySelector(':root');
@@ -180,8 +186,12 @@ function getRandomColor() {
     return '#' + n.slice(0, 6);
 }
 
-function fixDecimals(numToFix){
- return (String(numToFix)).replace(".", (JSON.parse(localStorage.getItem("prefs")))['decimal separator']);
+function fixDecimals(numToFix,reallyLong=false){
+  let toBeReturned=((String((Number(numToFix).toLocaleString('de-CH',{minimumFractionDigits: 2})))).replace(".", (JSON.parse(localStorage.getItem("prefs")))['decimal separator'])).replace("'", (JSON.parse(localStorage.getItem("prefs")))['order separator']);
+  if(reallyLong){
+    toBeReturned=toBeReturned.replace((JSON.parse(localStorage.getItem("prefs")))['decimal separator']+"00","")
+  }
+ return toBeReturned;
 }
 
 function goClip(){
@@ -222,14 +232,14 @@ let kioskCheque = (kioskGuests === 0) ? 0 : (kioskSum/kioskGuests).toFixed(2);
 
 output = `${datey}:
 
-Выручка общая:  ${af(kioskSum+cashierBoxSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Выручка общая:  ${af(fixDecimals((kioskSum+cashierBoxSum),true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){
-output += `Киоск, продажи:  ${af(kioskSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+output += `Киоск, продажи:  ${af(fixDecimals(kioskSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 Киоск, чек: ${af(fixDecimals(kioskCheque))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 `;
 }
-output += `Касса, продажи:  ${af(cashierBoxSum)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+output += `Касса, продажи:  ${af(fixDecimals(cashierBoxSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 Касса, чек:  ${af(fixDecimals((cashierBoxSum/cashierGuests).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 Количество гостей: `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){

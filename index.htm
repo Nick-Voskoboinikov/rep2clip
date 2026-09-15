@@ -19,10 +19,12 @@
             <option>Тёмная</option>
             <option>Чёрная</option>
             <option>Светлая</option>
-            <option>Психоделика</option>
+            <option>Припадочная</option>
           </select><br><br>
             <label for="pref_decimal_separator">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist" >
               <datalist id="pref_decimal_separator_datalist"><select disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
+            <label for="pref_order_separator">Разделитель разрядов</label>:<input type="text" id="pref_order_separator" value=" " list="pref_order_separator_datalist" >
+              <datalist id="pref_order_separator_datalist"><select disabled=""><option value=" "></option><option value="'"></option><option value="."></option><option value=","></option><option value=""></option></select></datalist><br><br>
           <details><summary autofocus>&ndash;&gt;&nbsp;Cтроки отчёта</summary>
             <fieldset><legend>Включать в отчёт строки:</legend>
             <table class="included_strings">
@@ -114,7 +116,7 @@
         </fieldset>
         <button title="Закрыть диалог настроек" id="close_prefs" aria-label="close modal" >&times;</button>
         <br>
-        <a href="javascript:alert('Это была единственная нерабочая ссылка и Вы её нашли.\nПоздравления!');">Скачать для использования оффлайн</a>
+        <a style="display: none;" href="javascript:alert('Это была единственная нерабочая ссылка и Вы её нашли.\nПоздравления!');">Скачать для использования оффлайн</a>
         <div id="alert-area" class="alert-area"></div>
       </dialog>
     <div id="form" data-memsnum="0">

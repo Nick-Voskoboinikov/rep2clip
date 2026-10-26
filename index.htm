@@ -64,6 +64,24 @@
               </label>
             </div>
           </td></tr>
+              <tr><td><label for="pref_include_footlongs">&quot;Салат дня&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_salads" >
+              <label class="flipswitch-label" for="pref_include_salads">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+              <tr><td><label for="pref_include_footlongs">&quot;Ролл дня&quot;</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_wraps" >
+              <label class="flipswitch-label" for="pref_include_wraps">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
               <tr><td><label for="pref_include_combo_trio">&quot;Комбо Трио&quot;</label></td><td>
             <div class="flipswitch">
               <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_include_combo_trio" >
@@ -94,6 +112,12 @@
               </td></tr>
               <tr><td><label for="pref_footlongs">Сэндвичи 30см</label>:</td><td><input type="text" id="pref_footlongs" list="pref_footlongs_datalist">
               <datalist id="pref_footlongs_datalist"><select disabled=""><option value=" 🥖"></option><option value="🥖"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_salads">Салаты</label>:</td><td><input type="text" id="pref_salads" list="pref_salads_datalist">
+              <datalist id="pref_salads_datalist"><select disabled=""><option value=" 🥗"></option><option value="🥗"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
+              </td></tr>
+              <tr><td><label for="pref_wraps">Роллы</label>:</td><td><input type="text" id="pref_wraps" list="pref_wraps_datalist">
+              <datalist id="pref_wraps_datalist"><select disabled=""><option value=" 🌯"></option><option value="🌯"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
               </td></tr>
               <tr><td><label for="pref_trios">Комбо Трио</label>:</td><td><input type="text" id="pref_trios" list="pref_trios_datalist">
               <datalist id="pref_trios_datalist"><select disabled=""><option value=" 🥖🥤🍪"></option><option value="🥖🥤🍪"></option><option value=" шт."></option><option value=" шт"></option></select></datalist>
@@ -140,7 +164,11 @@
     <tr><td><label for="sixInchesOfTheDay">Сэндвичи дня, 15 см</label>:
       <details><summary>i</summary><img src="img\IMG_20260725_091250_169_2.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="sixInchesOfTheDay" name="sixInchesOfTheDay" pattern="^\d+$" placeholder="Саб дня 15см" value=""></td></tr>
     <tr><td><label for="footlongsOfTheDay">Сэндвичи дня, 30 см</label>:
-      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="drinks" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
+      <details><summary>i</summary><img src="img\IMG_20260725_091250_169_3.png" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="footlongsOfTheDay" name="footlongsOfTheDay" pattern="^\d+$" placeholder="Саб дня 30см" value=""></td></tr>
+    <tr><td><label for="saladsOfTheDay">Салаты дня</label>:
+      </td><td><input type="text" inputmode="numeric" id="saladsOfTheDay" name="saladsOfTheDay" pattern="^\d+$" placeholder="Салаты дня" value="0"></td></tr>
+    <tr><td><label for="wrapsOfTheDay">Роллы дня</label>:
+      </td><td><input type="text" inputmode="numeric" id="wrapsOfTheDay" name="wrapsOfTheDay" pattern="^\d+$" placeholder="Роллы дня" value="0"></td></tr>
     <tr><td><label for="trio">Трио</label>:</td><td><input type="text" inputmode="numeric" id="trio" name="trio" pattern="^\d+$" placeholder="Комбо Трио" value=""></td></tr>
     <tr><td><label for="cashierBoxSum">Касса выручка</label>:
       <details><summary>i</summary><img src="img\IMG_20260725_091241_162_1.jpg" alt="Отчёт \"Общая выручка\"" ></details></td><td><input type="text" inputmode="numeric" id="cashierBoxSum" name="cashierBoxSum" pattern="^\d+$" placeholder="Касса выручка" value=""></td></tr>

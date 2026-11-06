@@ -1,6 +1,6 @@
 
 function recallSettings(){
-  let settingsNeedUpdate=false;
+  let settingsNeedUpdate=true;
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
       let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
@@ -337,26 +337,29 @@ function applyTablesPostprocessing(outputText){
     let maxLengthL=0;
     let maxLengthR=0;
     let separatedLines = outputText.split(/\r?\n|\r|\n/g);
-    let outputHead='```\n'+separatedLines[0]+'\n\n';
-    let outputBottom='\n```\n';
-    for (let i = 2; i < separatedLines.length-1; i++) {
-      let lineItems = (separatedLines[i]).split(/:/g);
-      if((lineItems[0].length+1)>maxLengthL){
-        maxLengthL=(lineItems[0].length+1);
-      }
-      if((lineItems[1].length)>maxLengthR){
-        maxLengthR=(lineItems[1].length);
+    let outputHead=separatedLines[0]+'\n```\n';
+    let outputBottom='```\n';
+    separatedLines[0]='Параметр: Количество';
+    for (let i = 0; i < separatedLines.length-1; i++) {
+      if(separatedLines[i].includes(':')){
+        let lineItems = (separatedLines[i]).split(/:/g);
+        if((lineItems[0].length+1)>maxLengthL){
+          maxLengthL=(lineItems[0].length+1);
+        }
+        if((lineItems[1].length)>maxLengthR){
+          maxLengthR=(lineItems[1].length);
+        }
       }
     }
+    separatedLines[1]='';
     for (let i = 0; i < maxLengthL; i++){
-      outputHead+='-';
+      separatedLines[1]+='-';
     }
-    outputHead+='|';
+    separatedLines[1]+=':';
     for (let i = 0; i < maxLengthR; i++){
-      outputHead+='-';
+      separatedLines[1]+='-';
     }
-    outputHead+='\n';
-    for (let i = 2; i < separatedLines.length-1; i++) {
+    for (let i = 0; i < separatedLines.length-1; i++) {
       let lineItems = (separatedLines[i]).split(/:/g);
       outputHead+=(lineItems[0]);
       for (let i = 0; i < maxLengthL-(lineItems[0].length); i++){

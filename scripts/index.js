@@ -317,7 +317,7 @@ alertu.show('Скопировано в буфер обмена.<br>Теперь 
 // function applies formatting if needed
 function af(numberForFormattingApplication=0){
   if((JSON.parse(localStorage.getItem("prefs")))['apply formatting']){
-    return '```'+numberForFormattingApplication+'```';
+    return '`'+numberForFormattingApplication+'`';
   }else{
     return numberForFormattingApplication;
   }

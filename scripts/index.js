@@ -1,9 +1,9 @@
 
 function recallSettings(){
-  let settingsNeedUpdate=false;
+  let settingsNeedUpdate=true;
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
@@ -102,9 +102,13 @@ function recallSettings(){
     document.querySelector('#pref_attempt_formatting').addEventListener('change',()=>{
       updateSettings();
     });
+    document.querySelector('#pref_attempt_tables').checked=(!!jsonedPrefsRead['apply tables']);
+    document.querySelector('#pref_attempt_tables').addEventListener('change',()=>{
+      updateSettings();
+    });
 }
 function updateSettings(){
-  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"order separator":document.querySelector('#pref_order_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Салат дня": document.querySelector('#pref_include_salads').checked,"Ролл дня": document.querySelector('#pref_include_wraps').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Салаты":document.querySelector('#pref_salads').value,"Роллы":document.querySelector('#pref_wraps').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
+  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"order separator":document.querySelector('#pref_order_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"apply tables":document.querySelector('#pref_attempt_tables').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Салат дня": document.querySelector('#pref_include_salads').checked,"Ролл дня": document.querySelector('#pref_include_wraps').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Салаты":document.querySelector('#pref_salads').value,"Роллы":document.querySelector('#pref_wraps').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
   localStorage.setItem("prefs", JSON.stringify(arrPrefs));
   // console.log(arrPrefs);
   

@@ -1,6 +1,6 @@
 
 function recallSettings(){
-  let settingsNeedUpdate=true;
+  let settingsNeedUpdate=false;
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
       let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
@@ -100,10 +100,12 @@ function recallSettings(){
     });
     document.querySelector('#pref_attempt_formatting').checked=(!!jsonedPrefsRead['apply formatting']);
     document.querySelector('#pref_attempt_formatting').addEventListener('change',()=>{
+      document.querySelector('#pref_attempt_tables').checked=false;
       updateSettings();
     });
     document.querySelector('#pref_attempt_tables').checked=(!!jsonedPrefsRead['apply tables']);
     document.querySelector('#pref_attempt_tables').addEventListener('change',()=>{
+      document.querySelector('#pref_attempt_formatting').checked=false;
       updateSettings();
     });
 }
@@ -292,7 +294,7 @@ if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Напитк
 output += `Напитки:  ${af(cashierDrinks)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Напитки']}
 `;
 }
-output += `Офф​лайн:  ${af(((kioskGuests+cashierGuests)-yandexDeliveries))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди']}
+output += `Оффлайн:  ${af(((kioskGuests+cashierGuests)-yandexDeliveries))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди']}
 `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 15см']){
 output += `Сабов дня 15см: ${af(sixInchesOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 15см']}
@@ -314,6 +316,8 @@ if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Комбо �
 output += `Комбо Трио:  ${af(triosN)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Комбо-трио']}`;
 }
 
+output=applyTablesPostprocessing(output);
+
 navigator.clipboard.writeText(output);
 alertu.show('Скопировано в буфер обмена.<br>Теперь можно вставить в чат.');
 }
@@ -324,6 +328,50 @@ function af(numberForFormattingApplication=0){
     return '`'+numberForFormattingApplication+'`';
   }else{
     return numberForFormattingApplication;
+  }
+}
+
+// function applies non-premium tables formatting if needed
+function applyTablesPostprocessing(outputText){
+  if((JSON.parse(localStorage.getItem("prefs")))['apply tables']){
+    let maxLengthL=0;
+    let maxLengthR=0;
+    let separatedLines = outputText.split(/\r?\n|\r|\n/g);
+    let outputHead='```\n'+separatedLines[0]+'\n\n';
+    let outputBottom='\n```\n';
+    for (let i = 2; i < separatedLines.length-1; i++) {
+      let lineItems = (separatedLines[i]).split(/:/g);
+      if((lineItems[0].length+1)>maxLengthL){
+        maxLengthL=(lineItems[0].length+1);
+      }
+      if((lineItems[1].length)>maxLengthR){
+        maxLengthR=(lineItems[1].length);
+      }
+    }
+    for (let i = 0; i < maxLengthL; i++){
+      outputHead+='-';
+    }
+    outputHead+='|';
+    for (let i = 0; i < maxLengthR; i++){
+      outputHead+='-';
+    }
+    outputHead+='\n';
+    for (let i = 2; i < separatedLines.length-1; i++) {
+      let lineItems = (separatedLines[i]).split(/:/g);
+      outputHead+=(lineItems[0]);
+      for (let i = 0; i < maxLengthL-(lineItems[0].length); i++){
+        outputHead+=' ';
+      }
+      outputHead+='|';
+      for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
+        outputHead+=' ';
+      }
+      outputHead+=(lineItems[1])+'\n';
+    }
+    outputText=outputHead+outputBottom;
+    return outputText;
+  }else{
+    return outputText;
   }
 }
 

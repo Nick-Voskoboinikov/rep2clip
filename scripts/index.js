@@ -335,7 +335,6 @@ function af(numberForFormattingApplication=0){
 
 // function applies non-premium tables formatting if needed
 function applyTablesPostprocessing(outputText){
-  console.log(outputText);
   if((JSON.parse(localStorage.getItem("prefs")))['apply tables']){
     let maxLengthL=0;
     let maxLengthR=0;

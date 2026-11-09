@@ -368,10 +368,14 @@ function applyTablesPostprocessing(outputText){
         outputHead+=' ';
       }
       outputHead+='|';
-      for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
-        outputHead+=' ';
+      console.log();
+      if (typeof lineItems[1] !== 'undefined') {
+        for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
+          outputHead+=' ';
+        }
+        outputHead+=(lineItems[1]);
       }
-      outputHead+=(lineItems[1])+'\n';
+      outputHead+='\n';
     }
     outputText=outputHead+outputBottom;
     return outputText;

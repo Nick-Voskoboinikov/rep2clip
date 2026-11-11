@@ -341,7 +341,9 @@ function applyTablesPostprocessing(outputText){
     let separatedLines = outputText.split(/\r?\n|\r|\n/g);
     let outputHead=separatedLines[0]+'\n```\n';
     let outputBottom='```\n';
-    separatedLines[0]='Параметр: Количество';
+    separatedLines[0]=separatedLines[2];
+    separatedLines.splice(2, 1);
+    console.log(separatedLines);
     for (let i = 0; i < separatedLines.length-1; i++) {
       if(separatedLines[i].includes(':')){
         let lineItems = (separatedLines[i]).split(/:/g);
@@ -362,20 +364,21 @@ function applyTablesPostprocessing(outputText){
       separatedLines[1]+='-';
     }
     for (let i = 0; i < separatedLines.length-1; i++) {
-      let lineItems = (separatedLines[i]).split(/:/g);
-      outputHead+=(lineItems[0]);
-      for (let i = 0; i < maxLengthL-(lineItems[0].length); i++){
-        outputHead+=' ';
-      }
-      outputHead+='|';
-      console.log();
-      if (typeof lineItems[1] !== 'undefined') {
-        for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
+      if((separatedLines[i]).length>0){
+        let lineItems = (separatedLines[i]).split(/:/g);
+        outputHead+=(lineItems[0]);
+        for (let i = 0; i < maxLengthL-(lineItems[0].length); i++){
           outputHead+=' ';
         }
-        outputHead+=(lineItems[1]);
+        outputHead+='|';
+        if (typeof lineItems[1] !== 'undefined') {
+          for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
+            outputHead+=' ';
+          }
+          outputHead+=(lineItems[1]);
+         outputHead+='\n';
+        }
       }
-      outputHead+='\n';
     }
     outputText=outputHead+outputBottom;
     return outputText;

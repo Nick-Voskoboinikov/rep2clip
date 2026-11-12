@@ -1,9 +1,7 @@
-
-function recallSettings(){
-  let settingsNeedUpdate = false;
+function recallSettings(settingsNeedUpdate = false){
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log('No prefs set previously, creating anew...');
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
@@ -108,9 +106,18 @@ function recallSettings(){
       document.querySelector('#pref_attempt_formatting').checked=false;
       updateSettings();
     });
+    
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))['hide zero vals'])) === "undefined"){
+    document.querySelector('#pref_hide_nulls').checked=true;
+    updateSettings();
+  }
+    document.querySelector('#pref_hide_nulls').checked=(!!jsonedPrefsRead['hide zero vals']);
+    document.querySelector('#pref_hide_nulls').addEventListener('change',()=>{
+      updateSettings();
+    });
 }
 function updateSettings(){
-  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"order separator":document.querySelector('#pref_order_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"apply tables":document.querySelector('#pref_attempt_tables').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Салат дня": document.querySelector('#pref_include_salads').checked,"Ролл дня": document.querySelector('#pref_include_wraps').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Салаты":document.querySelector('#pref_salads').value,"Роллы":document.querySelector('#pref_wraps').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
+  let arrPrefs={"theme":document.querySelector('#pref_theme').value,"decimal separator":document.querySelector('#pref_decimal_separator').value,"order separator":document.querySelector('#pref_order_separator').value,"apply formatting":document.querySelector('#pref_attempt_formatting').checked,"apply tables":document.querySelector('#pref_attempt_tables').checked,"hide zero vals":document.querySelector('#pref_hide_nulls').checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector('#pref_include_kiosk').checked, "Напитки": document.querySelector('#pref_include_drinks').checked,"Саб дня 15см": document.querySelector('#pref_include_sixinches').checked,"Саб дня 30см": document.querySelector('#pref_include_footlongs').checked,"Салат дня": document.querySelector('#pref_include_salads').checked,"Ролл дня": document.querySelector('#pref_include_wraps').checked,"Комбо Трио": document.querySelector('#pref_include_combo_trio').checked},"measurement units":{"Люди":document.querySelector('#pref_peeps').value,"Люди, много":document.querySelector('#pref_peeps_lots').value,"Деньги":document.querySelector('#pref_cash').value,"Доставки":document.querySelector('#pref_deliveries').value,"Сэндвичи 15см":document.querySelector('#pref_sixinches').value,"Сэндвичи 30см":document.querySelector('#pref_footlongs').value,"Салаты":document.querySelector('#pref_salads').value,"Роллы":document.querySelector('#pref_wraps').value,"Напитки":document.querySelector('#pref_drinks').value,"Комбо-трио":document.querySelector('#pref_trios').value}};
   localStorage.setItem("prefs", JSON.stringify(arrPrefs));
   // console.log(arrPrefs);
   
@@ -274,50 +281,51 @@ let kioskCheque = (kioskGuests === 0) ? 0 : (kioskSum/kioskGuests).toFixed(2);
 
 output = `${datey}:
 
-Выручка общая:  ${af(fixDecimals((kioskSum+cashierBoxSum),true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Выручка общая: ${af(fixDecimals((kioskSum+cashierBoxSum),true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){
-output += `Киоск, продажи:  ${af(fixDecimals(kioskSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+output += `Киоск, продажи: ${af(fixDecimals(kioskSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 Киоск, чек: ${af(fixDecimals(kioskCheque))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 `;
 }
-output += `Касса, продажи:  ${af(fixDecimals(cashierBoxSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
-Касса, чек:  ${af(fixDecimals((cashierBoxSum/cashierGuests).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+output += `Касса, продажи: ${af(fixDecimals(cashierBoxSum,true))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Касса, чек: ${af(fixDecimals((cashierBoxSum/cashierGuests).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 Количество гостей: `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Киоск, продажи и Киоск, чек']){
   output += `(${kioskGuests}+${cashierGuests})=`;
 }
 output += `${af(kioskGuests+cashierGuests)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди, много']}
-Средний чек:  ${af(fixDecimals(((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
+Средний чек: ${af(fixDecimals(((kioskSum+cashierBoxSum)/(kioskGuests+cashierGuests)).toFixed(2)))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Деньги']}
 `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Напитки']){
-output += `Напитки:  ${af(cashierDrinks)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Напитки']}
+output += `Напитки: ${af(cashierDrinks)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Напитки']}
 `;
 }
-output += `Оффлайн:  ${af(((kioskGuests+cashierGuests)-yandexDeliveries))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди']}
+output += `Оффлайн: ${af(((kioskGuests+cashierGuests)-yandexDeliveries))}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Люди']}
 `;
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 15см']){
 output += `Сабов дня 15см: ${af(sixInchesOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 15см']}
 `;
 }
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Саб дня 30см']){
-output += `Сабов дня 30см:  ${af(footlongsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 30см']}
+output += `Сабов дня 30см: ${af(footlongsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Сэндвичи 30см']}
 `;
 }
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Салат дня']){
-output += `Салатов дня:  ${af(saladsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Салаты']}
+output += `Салатов дня: ${af(saladsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Салаты']}
 `;
 }
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Ролл дня']){
-output += `Роллов дня:  ${af(wrapsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Роллы']}
+output += `Роллов дня: ${af(wrapsOfTheDay)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Роллы']}
 `;
 }
 if((JSON.parse(localStorage.getItem("prefs")))['reported strings']['Комбо Трио']){
-output += `Комбо Трио:  ${af(triosN)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Комбо-трио']}`;
+output += `Комбо Трио: ${af(triosN)}${(JSON.parse(localStorage.getItem("prefs")))['measurement units']['Комбо-трио']}`;
 }
 
 output += `\n`
 
+output=hideZeroContainingStrings(output);
 output=applyTablesPostprocessing(output);
 
 navigator.clipboard.writeText(output);
@@ -333,6 +341,25 @@ function af(numberForFormattingApplication=0){
   }
 }
 
+// function hides from results lines that has the value of zero if applicable
+function hideZeroContainingStrings(outputText){
+  if( (JSON.parse(localStorage.getItem("prefs")))["hide zero vals"] ){
+    let returnedValue="";
+    let separatedLines = outputText.split(/\r?\n|\r|\n/g);
+    for (let i = 0; i < separatedLines.length-1; i++) {
+      if( (!separatedLines[i].includes(": 0")) && (separatedLines[i].length !== 0)){
+        returnedValue+=separatedLines[i] + "\n";
+        if((separatedLines[i]).endsWith(":")){
+          returnedValue += "\n";
+        }
+      }
+    }
+    return returnedValue;
+  } else {
+    return outputText;
+  }
+}
+
 // function applies non-premium tables formatting if needed
 function applyTablesPostprocessing(outputText){
   if((JSON.parse(localStorage.getItem("prefs")))['apply tables']){
@@ -343,7 +370,6 @@ function applyTablesPostprocessing(outputText){
     let outputBottom='```\n';
     separatedLines[0]=separatedLines[2];
     separatedLines.splice(2, 1);
-    console.log(separatedLines);
     for (let i = 0; i < separatedLines.length-1; i++) {
       if(separatedLines[i].includes(':')){
         let lineItems = (separatedLines[i]).split(/:/g);

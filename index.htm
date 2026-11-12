@@ -22,9 +22,9 @@
             <option>Припадочная</option>
           </select><br><br>
             <label for="pref_decimal_separator">Десятичный разделитель</label>:<input type="text" id="pref_decimal_separator" value="" list="pref_decimal_separator_datalist" >
-              <datalist id="pref_decimal_separator_datalist"><select disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
+              <datalist id="pref_decimal_separator_datalist"><select name="pref_decimal_separator_datalist_named" disabled=""><option value=","></option><option value="."></option></select></datalist><br><br>
             <label for="pref_order_separator">Разделитель разрядов</label>:<input type="text" id="pref_order_separator" value=" " list="pref_order_separator_datalist" >
-              <datalist id="pref_order_separator_datalist"><select disabled=""><option value=" "></option><option value="'"></option><option value="."></option><option value=","></option><option value=""></option></select></datalist><br><br>
+              <datalist id="pref_order_separator_datalist"><select name="pref_order_separator_datalist_named" disabled=""><option value=" "></option><option value="'"></option><option value="."></option><option value=","></option><option value=""></option></select></datalist><br><br>
           <details><summary autofocus>&ndash;&gt;&nbsp;Cтроки отчёта</summary>
             <fieldset><legend>Включать в отчёт строки:</legend>
             <table class="included_strings">
@@ -140,6 +140,15 @@
             <div class="flipswitch">
               <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_attempt_tables" >
               <label class="flipswitch-label" for="pref_attempt_tables">
+                <div class="flipswitch-inner"></div>
+                <div class="flipswitch-switch"></div>
+              </label>
+            </div>
+          </td></tr>
+        <tr><td><label for="pref_hide_nulls">Скрывать в отчёте нулевые значения</label></td><td>
+            <div class="flipswitch">
+              <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="pref_hide_nulls" >
+              <label class="flipswitch-label" for="pref_hide_nulls">
                 <div class="flipswitch-inner"></div>
                 <div class="flipswitch-switch"></div>
               </label>

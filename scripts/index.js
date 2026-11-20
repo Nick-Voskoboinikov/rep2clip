@@ -1,7 +1,7 @@
-function recallSettings(settingsNeedUpdate = false){
+function recallSettings(settingsNeedUpdate = true){
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log("No prefs set previously, creating anew...");
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }

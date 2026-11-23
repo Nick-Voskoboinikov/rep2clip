@@ -1,7 +1,7 @@
 function recallSettings(settingsNeedUpdate = true){
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log("No prefs set previously, creating anew...");
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"table_components":{"Заполнитель строки": ".","Разделитель колонок": "","Начало строки": "","Конец строки": "","Отделитель заголовка, заполнитель": " ","Отделитель заголовка, разделитель колонок": "","Отделитель заголовка, начало строки": "","Отделитель заголовка, конец строки": ""},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
@@ -105,8 +105,7 @@ function recallSettings(settingsNeedUpdate = true){
     document.querySelector("#pref_attempt_tables").addEventListener("change",()=>{
       document.querySelector("#pref_attempt_formatting").checked=false;
       updateSettings();
-    });
-    
+    });    
   if((typeof ((JSON.parse(localStorage.getItem("prefs")))["hide zero vals"])) === "undefined"){
     document.querySelector("#pref_hide_nulls").checked=true;
     updateSettings();
@@ -115,9 +114,74 @@ function recallSettings(settingsNeedUpdate = true){
     document.querySelector("#pref_hide_nulls").addEventListener("change",()=>{
       updateSettings();
     });
+    
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Заполнитель строки"])) === "undefined"){
+    document.querySelector("#table_string_filler").value=" ";
+    updateSettings();
+  }
+    document.querySelector("#table_string_filler").value=(jsonedPrefsRead["table_components"]["Заполнитель строки"]);
+    document.querySelector("#table_string_filler").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Разделитель колонок"])) === "undefined"){
+    document.querySelector("#table_string_column_delimiter").value="|";
+    updateSettings();
+  }
+    document.querySelector("#table_string_column_delimiter").value=(jsonedPrefsRead["table_components"]["Разделитель колонок"]);
+    document.querySelector("#table_string_column_delimiter").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Начало строки"])) === "undefined"){
+    document.querySelector("#table_string_column_start").value="";
+    updateSettings();
+  }
+    document.querySelector("#table_string_column_start").value=(jsonedPrefsRead["table_components"]["Начало строки"]);
+    document.querySelector("#table_string_column_start").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Конец строки"])) === "undefined"){
+    document.querySelector("#table_string_column_end").value="";
+    updateSettings();
+  }
+    document.querySelector("#table_string_column_end").value=(jsonedPrefsRead["table_components"]["Конец строки"]);
+    document.querySelector("#table_string_column_end").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, заполнитель"])) === "undefined"){
+    document.querySelector("#table_string_header_filler").value="-";
+    updateSettings();
+  }
+    document.querySelector("#table_string_header_filler").value=(jsonedPrefsRead["table_components"]["Отделитель заголовка, заполнитель"]);
+    document.querySelector("#table_string_header_filler").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, разделитель колонок"])) === "undefined"){
+    document.querySelector("#table_string_header_column_delimiter").value="+";
+    updateSettings();
+  }
+    document.querySelector("#table_string_header_column_delimiter").value=(jsonedPrefsRead["table_components"]["Отделитель заголовка, разделитель колонок"]);
+    document.querySelector("#table_string_header_column_delimiter").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, начало строки"])) === "undefined"){
+    document.querySelector("#table_string_header_column_start").value="";
+    updateSettings();
+  }
+    document.querySelector("#table_string_header_column_start").value=(jsonedPrefsRead["table_components"]["Отделитель заголовка, начало строки"]);
+    document.querySelector("#table_string_header_column_start").addEventListener("change",()=>{
+      updateSettings();
+    });
+  if((typeof ((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, конец строки"])) === "undefined"){
+    document.querySelector("#table_string_header_column_end").value="";
+    updateSettings();
+  }
+    document.querySelector("#table_string_header_column_end").value=(jsonedPrefsRead["table_components"]["Отделитель заголовка, конец строки"]);
+    document.querySelector("#table_string_header_column_end").addEventListener("change",()=>{
+      updateSettings();
+    });
 }
 function updateSettings(){
-  let arrPrefs={"theme":document.querySelector("#pref_theme").value,"decimal separator":document.querySelector("#pref_decimal_separator").value,"order separator":document.querySelector("#pref_order_separator").value,"apply formatting":document.querySelector("#pref_attempt_formatting").checked,"apply tables":document.querySelector("#pref_attempt_tables").checked,"hide zero vals":document.querySelector("#pref_hide_nulls").checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector("#pref_include_kiosk").checked, "Напитки": document.querySelector("#pref_include_drinks").checked,"Саб дня 15см": document.querySelector("#pref_include_sixinches").checked,"Саб дня 30см": document.querySelector("#pref_include_footlongs").checked,"Салат дня": document.querySelector("#pref_include_salads").checked,"Ролл дня": document.querySelector("#pref_include_wraps").checked,"Комбо Трио": document.querySelector("#pref_include_combo_trio").checked},"measurement units":{"Люди":document.querySelector("#pref_peeps").value,"Люди, много":document.querySelector("#pref_peeps_lots").value,"Деньги":document.querySelector("#pref_cash").value,"Доставки":document.querySelector("#pref_deliveries").value,"Сэндвичи 15см":document.querySelector("#pref_sixinches").value,"Сэндвичи 30см":document.querySelector("#pref_footlongs").value,"Салаты":document.querySelector("#pref_salads").value,"Роллы":document.querySelector("#pref_wraps").value,"Напитки":document.querySelector("#pref_drinks").value,"Комбо-трио":document.querySelector("#pref_trios").value}};
+  let arrPrefs={"theme":document.querySelector("#pref_theme").value,"decimal separator":document.querySelector("#pref_decimal_separator").value,"order separator":document.querySelector("#pref_order_separator").value,"apply formatting":document.querySelector("#pref_attempt_formatting").checked,"apply tables":document.querySelector("#pref_attempt_tables").checked,"hide zero vals":document.querySelector("#pref_hide_nulls").checked,"reported strings":{"Киоск, продажи и Киоск, чек": document.querySelector("#pref_include_kiosk").checked, "Напитки": document.querySelector("#pref_include_drinks").checked,"Саб дня 15см": document.querySelector("#pref_include_sixinches").checked,"Саб дня 30см": document.querySelector("#pref_include_footlongs").checked,"Салат дня": document.querySelector("#pref_include_salads").checked,"Ролл дня": document.querySelector("#pref_include_wraps").checked,"Комбо Трио": document.querySelector("#pref_include_combo_trio").checked},"table_components":{"Заполнитель строки":document.querySelector("#table_string_filler").value,"Разделитель колонок":document.querySelector("#table_string_column_delimiter").value,"Начало строки":document.querySelector("#table_string_column_start").value,"Конец строки":document.querySelector("#table_string_column_end").value,"Отделитель заголовка, заполнитель":document.querySelector("#table_string_header_filler").value,"Отделитель заголовка, разделитель колонок":document.querySelector("#table_string_header_column_delimiter").value,"Отделитель заголовка, начало строки":document.querySelector("#table_string_header_column_start").value,"Отделитель заголовка, конец строки":document.querySelector("#table_string_header_column_end").value},"measurement units":{"Люди":document.querySelector("#pref_peeps").value,"Люди, много":document.querySelector("#pref_peeps_lots").value,"Деньги":document.querySelector("#pref_cash").value,"Доставки":document.querySelector("#pref_deliveries").value,"Сэндвичи 15см":document.querySelector("#pref_sixinches").value,"Сэндвичи 30см":document.querySelector("#pref_footlongs").value,"Салаты":document.querySelector("#pref_salads").value,"Роллы":document.querySelector("#pref_wraps").value,"Напитки":document.querySelector("#pref_drinks").value,"Комбо-трио":document.querySelector("#pref_trios").value}};
   localStorage.setItem("prefs", JSON.stringify(arrPrefs));
   // console.log(arrPrefs);
   
@@ -383,29 +447,39 @@ function applyTablesPostprocessing(outputText){
     }
     separatedLines[1]="";
     for (let i = 0; i < maxLengthL; i++){
-      separatedLines[1]+="-";
+      separatedLines[1]+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, заполнитель"];
     }
-    separatedLines[1]+=":";
+    separatedLines[1]+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, разделитель колонок"]+":";
     for (let i = 0; i < maxLengthR; i++){
-      separatedLines[1]+="-";
+      separatedLines[1]+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, заполнитель"];
     }
     for (let i = 0; i < separatedLines.length-1; i++) {
       if((separatedLines[i]).length>0){
         let lineItems = (separatedLines[i]).split(/:/g);
-        outputHead+=(lineItems[0]);
-        for (let i = 0; i < maxLengthL-(lineItems[0].length); i++){
-          outputHead+=" ";
+        if(i===1){
+          outputHead+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, начало строки"]+(lineItems[0]);
+        }else{
+          outputHead+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Начало строки"]+(lineItems[0]);
         }
-        outputHead+="|";
+        for (let index = 0; index < maxLengthL-(lineItems[0].length); index++){
+          outputHead+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Заполнитель строки"];
+        }
+          outputHead+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Разделитель колонок"];
         if (typeof lineItems[1] !== "undefined") {
           for (let i = 0; i < maxLengthR-(lineItems[1].length); i++){
-            outputHead+=" ";
+            outputHead+=(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Заполнитель строки"];
           }
-          outputHead+=(lineItems[1]);
+          if(i===1){
+            outputHead+=(lineItems[1])+(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, конец строки"];
+          }else{
+            outputHead+=(lineItems[1])+(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Конец строки"];
+          }
+          
          outputHead+="\n";
         }
       }
     }
+    outputHead=outputHead.replace((JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, разделитель колонок"]+(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Разделитель колонок"],(JSON.parse(localStorage.getItem("prefs")))["table_components"]["Отделитель заголовка, разделитель колонок"]);
     outputText=outputHead+outputBottom;
     return outputText;
   }else{
@@ -483,3 +557,12 @@ document.querySelector("#close_prefs").addEventListener("click",()=>{
 document.querySelector("#goClip").addEventListener("click",()=>{
   goClip();
 });
+
+
+for (const detailsSummary of document.querySelectorAll("#form summary")) {
+  detailsSummary.addEventListener("click",(e)=>{
+    if(((e.target).parentNode.querySelector("img").src).length === 0){
+      (e.target).parentNode.querySelector("img").src=(e.target).parentNode.querySelector("img").dataset.src;
+    }
+  });
+}

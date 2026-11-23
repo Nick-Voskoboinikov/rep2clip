@@ -161,6 +161,14 @@ input[type="checkbox"]:not(:checked) ~ .flipswitch-label {
     transition: all 0.25s ease-in 0s;
 }
 
+#table_components{
+    display: none;
+}
+
+#settings_dialog:has(input#pref_attempt_tables:checked) #table_components{
+    display: block;
+}
+
 
 @media (max-width: 500px){
     body {overflow-y: visible;}

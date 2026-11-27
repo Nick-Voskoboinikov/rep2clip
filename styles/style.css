@@ -169,6 +169,55 @@ input[type="checkbox"]:not(:checked) ~ .flipswitch-label {
     display: block;
 }
 
+#chequeePlus {
+    border-radius: 0 20px 20px 0;
+    padding-block-start: .25rem;
+    padding-block-end: .25rem;
+    font-weight: bold;
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+}
+
+#addInput {
+    width: 10ch;
+    border-radius: 20px 0 0 20px;
+    padding-block-start: .25rem;
+    padding-block-end: .25rem;
+    font-weight: bold;
+    text-align: right;
+    border: 0;
+    outline: 0;
+    position: relative;
+    top: -1px;
+    outline: 1px solid white;
+}
+
+
+.someKioskChequeSum {
+    display: inline-block;
+    padding: .125rem .25rem;
+    background-color: #fff;
+    border-radius: 18px;
+}
+
+.someKioskChequeSum::before{
+    content: attr(data-sum)' ';
+    display: inline;
+    position: relative;
+    color: #000;
+    background-color: #fff;
+    opacity: 1;
+    font-weight: bold;
+}
+.someKioskChequeSum::after{
+    content: '\20\274C';
+    display: inline;
+    position: relative;
+    color: #000;
+    background-color: #fff;
+    opacity: 1;
+}
 
 @media (max-width: 500px){
     body {overflow-y: visible;}

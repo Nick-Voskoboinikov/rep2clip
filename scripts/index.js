@@ -1,7 +1,7 @@
-function recallSettings(settingsNeedUpdate = false){
+function recallSettings(settingsNeedUpdate = true){
     if ((localStorage.getItem("prefs") === null) || settingsNeedUpdate ){
       console.log("No prefs set previously, creating anew...");
-      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":true,"reported strings":{"Киоск, продажи и Киоск, чек": false, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"table_components":{"Заполнитель строки": ".","Разделитель колонок": "","Начало строки": "","Конец строки": "","Отделитель заголовка, заполнитель": " ","Отделитель заголовка, разделитель колонок": "","Отделитель заголовка, начало строки": "","Отделитель заголовка, конец строки": ""},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
+      let arrPrefs={"theme":"Тёмная","decimal separator":",","order separator":" ","apply formatting":false,"apply tables":false,"hide zero vals":false,"reported strings":{"Киоск, продажи и Киоск, чек": true, "Напитки": true,"Саб дня 15см": true,"Саб дня 30см": true,"Салат дня": true,"Ролл дня": true,"Комбо Трио": false},"table_components":{"Заполнитель строки": ".","Разделитель колонок": "","Начало строки": "","Конец строки": "","Отделитель заголовка, заполнитель": " ","Отделитель заголовка, разделитель колонок": "","Отделитель заголовка, начало строки": "","Отделитель заголовка, конец строки": ""},"measurement units":{"Люди":" 👤","Люди, много":" 👥","Деньги":" ₽","Доставки":" 📦","Сэндвичи 15см":" 🥪","Сэндвичи 30см":" 🥖","Салаты":" 🥗","Роллы":" 🌯","Напитки":" 🥤","Комбо-трио":" 🥖🥤🍪"}}
       let jsonedPrefs=JSON.stringify(arrPrefs);;
       localStorage.setItem("prefs", jsonedPrefs);
     }
@@ -502,6 +502,36 @@ function validateInput(el) {
     );
   });
 }
+
+function addKioskCheque(){
+  let val=parseInt((document.querySelector("#addInput")).value,10);
+  if(Number.isNaN(val)){
+    return;
+  }
+  val=(parseFloat((document.querySelector("#addInput").value).replace("+", ""))).toFixed(2);
+  let temp = document.querySelector("template.kioskChequesTemplate");
+  let clon = temp.cloneNode(true);
+  document.querySelector("#addInput").insertAdjacentHTML("beforebegin",clon.innerHTML);
+  document.querySelector("p.someKioskChequeSum:last-of-type").dataset.sum=val;
+  let kioskSum=Number.isNaN(parseInt((document.querySelector("#kioskSum")).value,10))?parseInt("0", 10):(parseFloat(document.querySelector("#kioskSum").value)).toFixed(2);
+  let kioskGuests=Number.isNaN(parseInt((document.querySelector("#kioskGuests")).value,10))?0:parseInt((document.querySelector("#kioskGuests")).value,10);
+  (document.querySelector("#kioskSum")).value=parseFloat(val)+parseFloat(kioskSum);
+  (document.querySelector("#kioskGuests")).value=kioskGuests+1;
+  (document.querySelector("#addInput")).value="";
+  (document.querySelector("#addInput")).focus();
+}
+
+function removeKioskCheque(target){
+  let val=parseFloat((parseFloat(target.dataset.sum)).toFixed(2));
+  let kioskSum=Number.isNaN(parseInt((document.querySelector("#kioskSum")).value,10))?parseInt("0", 10):(parseFloat(document.querySelector("#kioskSum").value)).toFixed(2);
+  let kioskGuests=Number.isNaN(parseInt((document.querySelector("#kioskGuests")).value,10))?0:parseInt((document.querySelector("#kioskGuests")).value,10);
+  (document.querySelector("#kioskSum")).value=parseFloat(kioskSum)-parseFloat(val);
+  (document.querySelector("#kioskGuests")).value=kioskGuests-1;
+  target.remove();  
+  (document.querySelector("#addInput")).focus();
+}
+
+
 const numericInputs = document.querySelectorAll("[inputmode=numeric]");
 numericInputs.forEach((input) => {
   validateInput(input);
@@ -517,17 +547,6 @@ possiblePeriods.forEach(item => {
   }
 });
 });
-
-let kioskPreSum=document.querySelector("#kioskPreSum");
-kioskPreSum.addEventListener("keyup",()=>{
-  let vals=(kioskPreSum.value).split(" ");
-  if((vals[vals.length - 1]).length !== 0 ){
-    document.querySelector("#kioskGuests").value=vals.length;
-  } else {
-    document.querySelector("#kioskGuests").value=vals.length-1;
-  }
-  document.querySelector("#kioskSum").value=vals.reduce((acc, num) => acc + Number(num), 0);
-},false);
 
 var alertus=new AlertBox("#alert-area", {
 		    closeTime: 2000,
@@ -558,6 +577,10 @@ document.querySelector("#goClip").addEventListener("click",()=>{
   goClip();
 });
 
+document.querySelector("#chequeePlus").addEventListener("click",()=>{
+  addKioskCheque();
+});
+
 
 for (const detailsSummary of document.querySelectorAll("#form summary")) {
   detailsSummary.addEventListener("click",(e)=>{
@@ -566,3 +589,11 @@ for (const detailsSummary of document.querySelectorAll("#form summary")) {
     }
   });
 }
+
+document.querySelector("#addInput").addEventListener("keydown", e=> {
+  if(e.key === "+"){
+    e.preventDefault;
+    document.querySelector("#chequeePlus").click();
+    setTimeout(()=>{(document.querySelector("#addInput")).value=""}, 150);
+  }
+});

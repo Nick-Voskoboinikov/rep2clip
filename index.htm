@@ -197,14 +197,21 @@
   <fieldset><legend>За период</legend>
   <input type="radio" name="period" id="forStrictDate" checked >&nbsp;&nbsp;&nbsp;<label for="forStrictDate">За сегодня</label><br>
   <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная статистика</label><br>
-  <div id="interMedStatSumField" ><input type="text" inputmode="numeric" id="kioskPreSum" name="kioskPreSum" pattern="^[\d\.\s]+$" placeholder="Киоск, суммы чеков через пробел" value=""></div>
+    
+    <fieldset id="interMedStatSumField"><legend>Киоск, добавить суммы чеков через плюс</legend>
+<input type="text" inputmode="numeric" pattern="^[\d\.\+]+$" id="addInput" name="addInput" maxlength="8" ><input type="button" id="chequeePlus" name="chequeePlus" value="➕">
+
+<template class="kioskChequesTemplate">
+  <p class="someKioskChequeSum" onclick="removeKioskCheque(this);" > </p>
+</template>
+</fieldset>
   <input type="radio" name="period" id="forThisNight" >&nbsp;&nbsp;&nbsp;<label for="forThisNight">За ночь</label>
   </fieldset><br>
   <table>
     <tr><td><label for="kioskSum">Киоск, выручка</label>:
       <details><summary>i</summary><img data-src="img\IMG_20260725_091305_860_1.jpg" alt="Общий сменный день" ></details>
     </td><td>
-      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^\d+$" placeholder="Киоск, выручка" value="" ></td></tr>
+      <input type="text" inputmode="numeric" id="kioskSum" name="kioskSum" pattern="^[\d\.]+$" placeholder="Киоск, выручка" value="" ></td></tr>
     <tr><td><label for="kioskGuests">Киоск, люди</label>:</td><td><input type="number" inputmode="numeric" id="kioskGuests" name="kioskGuests" pattern="^\d+$" placeholder="Киоск, люди" value="" ></td></tr>
     <tr><td><label for="yandexDeliveries">Доставок</label>:
       <details><summary>i</summary><img data-src="img\IMG_20260725_090932_355.jpg" alt="Общий сменный день" ></details></td><td><input type="text" inputmode="numeric" id="yandexDeliveries" name="yandexDeliveries" pattern="^\d+$" placeholder="Яндекс-доставки" value=""></td></tr>

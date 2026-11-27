@@ -223,6 +223,6 @@ input[type="checkbox"]:not(:checked) ~ .flipswitch-label {
     body {overflow-y: visible;}
     table:not(.included_strings) td {display: block;}
     input[type=text], input[type=number] {width:95%;}
-    input[type=button] {width: 100%;}
+    input[type=button]:not(#chequeePlus) {width: 100%;}
     td > div.flipswitch {float: right;}
 }

@@ -591,7 +591,8 @@ for (const detailsSummary of document.querySelectorAll("#form summary")) {
 }
 
 document.querySelector("#addInput").addEventListener("keydown", e=> {
-  if(e.key === "+"){
+  console.log(e);
+  if((e.key === "+") || (e.key === "Enter")){
     e.preventDefault;
     document.querySelector("#chequeePlus").click();
     setTimeout(()=>{(document.querySelector("#addInput")).value=""}, 150);

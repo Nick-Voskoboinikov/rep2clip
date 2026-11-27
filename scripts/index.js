@@ -529,6 +529,9 @@ function removeKioskCheque(target){
   (document.querySelector("#kioskGuests")).value=kioskGuests-1;
   target.remove();
   (document.querySelector("#addInput")).focus();
+  let audioElement=document.getElementsByTagName('audio')[0];
+  audioElement.setAttribute('autoplay','autoplay');
+  audioElement.play();
 }
 
 

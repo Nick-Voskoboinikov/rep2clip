@@ -199,7 +199,9 @@
   <input type="radio" name="period" id="forInterMed" >&nbsp;&nbsp;&nbsp;<label for="forInterMed">Промежуточная статистика</label><br>
     
     <fieldset id="interMedStatSumField"><legend>Киоск, добавить суммы чеков через плюс</legend>
-<input type="text" inputmode="numeric" pattern="^[\d\.\+]+$" id="addInput" name="addInput" maxlength="8" ><input type="button" id="chequeePlus" name="chequeePlus" value="➕">
+      <div id="plusBtnContainer">
+        <input type="text" inputmode="numeric" pattern="^[\d\.\+]+$" id="addInput" name="addInput" maxlength="8" ><input type="button" id="chequeePlus" name="chequeePlus" value="➕">
+      </div>
 
 <template class="kioskChequesTemplate">
   <p class="someKioskChequeSum" onclick="removeKioskCheque(this);" > </p>

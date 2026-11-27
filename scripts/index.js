@@ -511,7 +511,7 @@ function addKioskCheque(){
   val=(parseFloat((document.querySelector("#addInput").value).replace("+", ""))).toFixed(2);
   let temp = document.querySelector("template.kioskChequesTemplate");
   let clon = temp.cloneNode(true);
-  document.querySelector("#addInput").insertAdjacentHTML("beforebegin",clon.innerHTML);
+  document.querySelector("#plusBtnContainer").insertAdjacentHTML("beforebegin",clon.innerHTML);
   document.querySelector("p.someKioskChequeSum:last-of-type").dataset.sum=val;
   let kioskSum=Number.isNaN(parseInt((document.querySelector("#kioskSum")).value,10))?parseInt("0", 10):(parseFloat(document.querySelector("#kioskSum").value)).toFixed(2);
   let kioskGuests=Number.isNaN(parseInt((document.querySelector("#kioskGuests")).value,10))?0:parseInt((document.querySelector("#kioskGuests")).value,10);

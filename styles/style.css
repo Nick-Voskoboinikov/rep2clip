@@ -219,6 +219,12 @@ input[type="checkbox"]:not(:checked) ~ .flipswitch-label {
     opacity: 1;
 }
 
+#plusBtnContainer{
+    display: inline-block;
+    max-width: 75%;
+    min-width: 74px;
+}
+
 @media (max-width: 500px){
     body {overflow-y: visible;}
     table:not(.included_strings) td {display: block;}

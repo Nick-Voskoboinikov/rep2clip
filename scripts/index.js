@@ -527,7 +527,7 @@ function removeKioskCheque(target){
   let kioskGuests=Number.isNaN(parseInt((document.querySelector("#kioskGuests")).value,10))?0:parseInt((document.querySelector("#kioskGuests")).value,10);
   (document.querySelector("#kioskSum")).value=parseFloat(kioskSum)-parseFloat(val);
   (document.querySelector("#kioskGuests")).value=kioskGuests-1;
-  target.remove();  
+  target.remove();
   (document.querySelector("#addInput")).focus();
 }
 
@@ -542,6 +542,7 @@ possiblePeriods.forEach(item => {
     item.addEventListener("change",()=>{
   if(document.querySelector("#forInterMed").checked){
     document.querySelector("#interMedStatSumField").style.display="block";
+    (document.querySelector("#addInput")).focus();
   } else {
     document.querySelector("#interMedStatSumField").style.display="none";
   }
@@ -591,7 +592,6 @@ for (const detailsSummary of document.querySelectorAll("#form summary")) {
 }
 
 document.querySelector("#addInput").addEventListener("keydown", e=> {
-  console.log(e);
   if((e.key === "+") || (e.key === "Enter")){
     e.preventDefault;
     document.querySelector("#chequeePlus").click();
